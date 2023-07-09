@@ -13,10 +13,39 @@ export const checkSpecialChar = (e) => {
     e.stopPropagation();
   }
 };
+export const jumlahFunc = (
+  values,
+  setKata,
+  setVisibleUnder,
+  setVisibleHigher,
+  setVisibleButtonJumlah
+) => {
+  if (values.jumlah <= 100 && values.jumlah > null) {
+    setVisibleUnder(true);
+    setVisibleHigher(false);
+    setVisibleButtonJumlah(false);
+    setKata("Free");
+  } else {
+    setVisibleHigher(true);
+    setVisibleUnder(false);
+    setVisibleButtonJumlah(false);
+    setKata("Include");
+  }
+};
+export const ubahFunction = (
+  setVisibleUnder,
+  setVisibleHigher,
+  setVisibleButtonJumlah
+) => {
+  setVisibleUnder(false);
+  setVisibleHigher(false);
+  setVisibleButtonJumlah(true);
+};
 export const handleFormInput = (
   event,
   values,
-  data,
+  kata,
+  dataAkad,
   temp,
   noCatin,
   lBarcode,
@@ -30,6 +59,9 @@ export const handleFormInput = (
   visibleAkad,
   visibleResepsi,
   visibleFilter,
+  visibleUnder,
+  visibleHigher,
+  visibleButtonJumlah,
   setVisibleWebsite,
   setVisibleVideo,
   setVisibleWebnVid,
@@ -44,8 +76,11 @@ export const handleFormInput = (
   setDataBundling,
   setVisibleAkad,
   setVisibleResepsi,
-  setData,
-  setDataResepsi
+  setDataAkad,
+  setDataResepsi,
+  setVisibleUnder,
+  setVisibleHigher,
+  setVisibleButtonJumlah
 ) => {
   const { name, value } = event.target;
   if (event.target.name === "daftarHadir" && event.target.value === "Iya") {
@@ -120,9 +155,9 @@ export const handleFormInput = (
     setVisibleResepsi(false);
   }
   if (!!values.lainnyaAkad) {
-    setData("%0a-Acara : " + values.lainnyaAkad);
+    setDataAkad("%0a-Acara : " + values.lainnyaAkad);
   } else {
-    setData("%0a-Acara : " + values.namaAcaraAkad);
+    setDataAkad("%0a-Acara : " + values.namaAcaraAkad);
   }
   if (!!values.lainnyaResepsi) {
     setDataResepsi("%0a-Acara : " + values.lainnyaResepsi);
@@ -158,7 +193,8 @@ export const handleFormInput = (
 export const handleFormSubmit = (
   event,
   values,
-  data,
+  kata,
+  dataAkad,
   temp,
   noCatin,
   lBarcode,
@@ -172,6 +208,8 @@ export const handleFormSubmit = (
   visibleAkad,
   visibleResepsi,
   visibleFilter,
+  visibleUnder,
+  visibleHigher,
   setVisibleWebsite,
   setVisibleVideo,
   setVisibleWebnVid,
@@ -186,8 +224,10 @@ export const handleFormSubmit = (
   setDataBundling,
   setVisibleAkad,
   setVisibleResepsi,
-  setData,
+  setDataAkad,
   setDataResepsi,
+  setVisibleUnder,
+  setVisibleHigher,
   setValidated
 ) => {
   const form = event.currentTarget;
@@ -196,7 +236,7 @@ export const handleFormSubmit = (
     event.stopPropagation();
     if (dataBundling === 1) {
       window.location.href =
-        "https://api.whatsapp.com/send/?phone=6281215372042&text=" +
+        "https://api.whatsapp.com/send/?phone=6282136869969&text=" +
         "1. Model Undangan Cetak : " +
         values.model +
         "%0a%0a2. Desain Undangan Cetak : " +
@@ -226,7 +266,7 @@ export const handleFormSubmit = (
         " dan Ibu " +
         values.namaIbuPria +
         "%0a%0a7. Rincian Acara %0a-Acara 1 : " +
-        data +
+        dataAkad +
         "%0a-Hari, Tanggal Bulan Tahun : " +
         values.hariAkad +
         ", " +
@@ -253,28 +293,22 @@ export const handleFormSubmit = (
         values.tempatResepsi +
         "%0a-Maps acara : " +
         values.mapsResepsi +
-        "%0a%0a8. Alamat Pengiriman Undangan Cetak %0a-Nama Penerima : " +
-        values.namaPenerimaUndangan +
-        "%0a-Alamat Penerima : " +
-        values.alamatPenerimaUndangan +
-        "%0a-Nomor Telepon Penerima : " +
-        values.nomorPenerimaUndangan +
-        "%0a%0a9. Tema Undangan Website : " +
+        "%0a%0a8. Tema Undangan Website : " +
         values.temaWebsite +
-        "%0a%0a10. Bahasa Undangan Website: " +
+        "%0a%0a9. Bahasa Undangan Website: " +
         values.bahasa +
+        "%0a%0a10. Foto Undangan Digital : " +
+        values.foto +
         "%0a%0a11. Filter Instagram : " +
         values.pakaiFilter +
         filter +
-        "%0a%0a12. Penggunaan Foto : " +
-        values.foto +
-        "%0a%0a13. Musik : " +
+        "%0a%0a12. Musik : " +
         values.musik +
-        "%0a%0a14. Love Story : " +
+        "%0a%0a13. Love Story : " +
         temp +
-        "%0a%0a15. Live Streaming : " +
+        "%0a%0a14. Live Streaming : " +
         values.live +
-        "%0a%0a16. Wedding Gift %0a%0a-Amplop Digital 1%0a-Nomor Rekening 1 : " +
+        "%0a%0a15. Wedding Gift %0a%0a-Amplop Digital 1%0a-Nomor Rekening 1 : " +
         values.nomorRek +
         "%0a-Nama Bank 1 : " +
         values.namaBank +
@@ -292,14 +326,18 @@ export const handleFormSubmit = (
         values.namaPenerima +
         "%0a-WA Konfirmasi Amplop/Penerima : " +
         values.waKonfirmasi +
-        "%0a%0a17. Reservasi Kehadiran via WA : " +
+        "%0a%0a16. Reservasi Kehadiran via WA : " +
         values.daftarHadir +
-        noCatin;
-      // "%0a%0a15. QR Code RSVP : " +
-      // values.rsvp;
+        noCatin +
+        "%0a%0a17. Alamat Pengiriman Undangan Cetak %0a-Nama Penerima : " +
+        values.namaPenerimaUndangan +
+        "%0a-Alamat Penerima : " +
+        values.alamatPenerimaUndangan +
+        "%0a-Nomor Telepon Penerima : " +
+        values.nomorPenerimaUndangan;
     } else if (dataBundling === 2) {
       window.location.href =
-        "https://api.whatsapp.com/send/?phone=6281215372042&text=" +
+        "https://api.whatsapp.com/send/?phone=6282136869969&text=" +
         "1. Model Undangan Cetak : " +
         values.model +
         "%0a%0a2. Desain Undangan Cetak : " +
@@ -329,7 +367,7 @@ export const handleFormSubmit = (
         " dan Ibu " +
         values.namaIbuPria +
         "%0a%0a7. Rincian Acara %0a-Acara 1 : " +
-        data +
+        dataAkad +
         "%0a-Hari, Tanggal Bulan Tahun : " +
         values.hariAkad +
         ", " +
@@ -356,31 +394,31 @@ export const handleFormSubmit = (
         values.tempatResepsi +
         "%0a-Maps acara : " +
         values.mapsResepsi +
-        "%0a%0a8. Alamat Pengiriman Undangan Cetak %0a-Nama Penerima : " +
-        values.namaPenerimaUndangan +
-        "%0a-Alamat Penerima : " +
-        values.alamatPenerimaUndangan +
-        "%0a-Nomor Telepon Penerima : " +
-        values.nomorPenerimaUndangan +
-        "%0a%0a9. Tema Undangan Video/Jpeg : " +
+        "%0a%0a8. Tema Undangan Video/Jpeg : " +
         values.temaVideo +
-        "%0a%0a10. Paket Undangan Video/Jpeg : " +
+        "%0a%0a9. Paket Undangan Video/Jpeg : " +
         values.paketVideo +
-        "%0a%0a11. Filter Instagram : " +
+        "%0a%0a10. Filter Instagram : " +
         values.pakaiFilter +
         filter +
-        "%0a%0a12. Penggunaan Foto : " +
+        "%0a%0a11. Penggunaan Foto : " +
         values.foto +
-        "%0a%0a13. Barcode : " +
+        "%0a%0a12. Barcode : " +
         values.barcode +
         lBarcode +
-        "%0a%0a14. Denah : " +
+        "%0a%0a13. Denah : " +
         values.denah +
-        "%0a%0a15. Musik : " +
-        values.musik;
+        "%0a%0a14. Musik : " +
+        values.musik +
+        "%0a%0a15. Alamat Pengiriman Undangan Cetak %0a-Nama Penerima : " +
+        values.namaPenerimaUndangan +
+        "%0a-Alamat Penerima : " +
+        values.alamatPenerimaUndangan +
+        "%0a-Nomor Telepon Penerima : " +
+        values.nomorPenerimaUndangan;
     } else {
       window.location.href =
-        "https://api.whatsapp.com/send/?phone=6281215372042&text=" +
+        "https://api.whatsapp.com/send/?phone=6282136869969&text=" +
         "1. Model Undangan Cetak : " +
         values.model +
         "%0a%0a2. Desain Undangan Cetak : " +
@@ -410,7 +448,7 @@ export const handleFormSubmit = (
         " dan Ibu " +
         values.namaIbuPria +
         "%0a%0a7. Rincian Acara %0a-Acara 1 : " +
-        data +
+        dataAkad +
         "%0a-Hari, Tanggal Bulan Tahun : " +
         values.hariAkad +
         ", " +
@@ -437,39 +475,33 @@ export const handleFormSubmit = (
         values.tempatResepsi +
         "%0a-Maps acara : " +
         values.mapsResepsi +
-        "%0a%0a8. Alamat Pengiriman Undangan Cetak %0a-Nama Penerima : " +
-        values.namaPenerimaUndangan +
-        "%0a-Alamat Penerima : " +
-        values.alamatPenerimaUndangan +
-        "%0a-Nomor Telepon Penerima : " +
-        values.nomorPenerimaUndangan +
-        "%0a%0a9. Tema Undangan Website : " +
+        "%0a%0a8. Tema Undangan Website : " +
         values.temaWebsite +
-        "%0a%0a10. Bahasa Undangan Website: " +
+        "%0a%0a9. Bahasa Undangan Website: " +
         values.bahasa +
-        "%0a%0a11. Tema Undangan Video/Jpeg : " +
+        "%0a%0a10. Tema Undangan Video/Jpeg : " +
         values.temaVideo +
-        "%0a%0a12. Paket Undangan Video/Jpeg : " +
+        "%0a%0a11. Paket Undangan Video/Jpeg : " +
         values.paketVideo +
+        "%0a%0a12. Foto Undangan Digital: " +
+        values.foto +
         "%0a%0a13. Filter Instagram : " +
         values.pakaiFilter +
         filter +
-        "%0a%0a14. Penggunaan Foto : " +
-        values.foto +
-        "%0a%0a15. Barcode : " +
+        "%0a%0a14. Barcode : " +
         values.barcode +
         lBarcode +
-        "%0a%0a16. Denah : " +
+        "%0a%0a15. Denah : " +
         values.denah +
-        "%0a%0a17. Musik Undangan %0a-Website : " +
+        "%0a%0a16. Musik Undangan %0a-Website : " +
         values.musik +
         "%0a-Video : " +
         values.musik2 +
-        "%0a%0a18. Love Story : " +
+        "%0a%0a17. Love Story : " +
         temp +
-        "%0a%0a19. Live Streaming : " +
+        "%0a%0a18. Live Streaming : " +
         values.live +
-        "%0a%0a20. Wedding Gift %0a%0a-Amplop Digital 1%0a-Nomor Rekening 1 : " +
+        "%0a%0a19. Wedding Gift %0a%0a-Amplop Digital 1%0a-Nomor Rekening 1 : " +
         values.nomorRek +
         "%0a-Nama Bank 1 : " +
         values.namaBank +
@@ -487,9 +519,15 @@ export const handleFormSubmit = (
         values.namaPenerima +
         "%0a-WA Konfirmasi Amplop/Penerima : " +
         values.waKonfirmasi +
-        "%0a%0a21. Reservasi Kehadiran via WA : " +
+        "%0a%0a20. Reservasi Kehadiran via WA : " +
         values.daftarHadir +
-        noCatin;
+        noCatin +
+        "%0a%0a21. Alamat Pengiriman Undangan Cetak %0a-Nama Penerima : " +
+        values.namaPenerimaUndangan +
+        "%0a-Alamat Penerima : " +
+        values.alamatPenerimaUndangan +
+        "%0a-Nomor Telepon Penerima : " +
+        values.nomorPenerimaUndangan;
     }
   }
   // console.log(dataGold);

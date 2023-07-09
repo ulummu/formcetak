@@ -30,6 +30,16 @@ const DataWebsite = ( { temaWebsite, bahasa, pakaiFilter, visiblFilter, filterig
         errorText="Bahasa Belum Dipilih"
         onChange={handleInputChange}
         />
+      <SelectFormComponent
+      validasi={true} 
+      label="Foto Undangan"
+      name="foto"
+      value={foto}
+      optionsTitle="Silakan Pilih"
+      options={fotoPackages}
+      errorText="Foto Belum Dipilih"
+      onChange={handleInputChange}
+      />
     <Form.Group>
         <Form.Label className="mb-0">Filter Instagram</Form.Label>
         <Form.Label className="labelFormFilter">
@@ -75,16 +85,6 @@ const DataWebsite = ( { temaWebsite, bahasa, pakaiFilter, visiblFilter, filterig
         </>
         )}
         
-        <SelectFormComponent
-        validasi={true} 
-        label="Menggunakan Foto"
-        name="foto"
-        value={foto}
-        optionsTitle="Silakan Pilih"
-        options={fotoPackages}
-        errorText="Foto Belum Dipilih"
-        onChange={handleInputChange}
-        />
         <Accordion flush >
           <Accordion.Item eventKey="0">
             <Accordion.Header>
@@ -93,8 +93,9 @@ const DataWebsite = ( { temaWebsite, bahasa, pakaiFilter, visiblFilter, filterig
             </Accordion.Header>
             <Accordion.Body>
                 <TextInputFormComponent
+                className="musik"
                 validasi={true} 
-                label="Backsound Undangan"
+                label="Masukkan Link Youtube"
                 name="musik"
                 value={musik}
                 placeholder="Masukkan Link Youtube"

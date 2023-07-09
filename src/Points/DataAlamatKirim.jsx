@@ -15,7 +15,7 @@ const DataAlamatKirim = ({ namaPenerimaUndangan, alamatPenerimaUndangan, nomorPe
                 <TextInputFormComponent
                 classEffect="formTanggal mb-2"
                 validasi={true} 
-                label="Nama Pengirim"
+                label="Nama Penerima"
                 name="namaPenerimaUndangan"
                 value={capitalFirstWord(namaPenerimaUndangan)}
                 placeholder="Nama Pengirim"

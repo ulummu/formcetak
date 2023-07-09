@@ -29,28 +29,38 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
         options={bahasaPackages}
         errorText="Bahasa Belum Dipilih"
         onChange={handleInputChange}
-        />
-        <SelectFormComponent
-            validasi={true}
-            name="temaVideo"
-            label="Tema Undangan Video/Jpeg"
-            defaultValue={temaVideo}
-            optionsTitle="Silakan Pilih Tema"
-            options={videoThemes}
-            errorText="Tema Belum Dipilih"
-            onChange={handleInputChange}
-        />
+    />
+    <SelectFormComponent
+        validasi={true}
+        name="temaVideo"
+        label="Tema Undangan Video/Jpeg"
+        defaultValue={temaVideo}
+        optionsTitle="Silakan Pilih Tema"
+        options={videoThemes}
+        errorText="Tema Belum Dipilih"
+        onChange={handleInputChange}
+    />
 
-        <SelectFormComponent
-            validasi={true}
-            name="paketVideo"
-            label="Paket Undangan Video/Jpeg"
-            value={paketVideo}
-            optionsTitle="Silakan Pilih Paket"
-            options={videoPackages}
-            errorText="Paket Belum Dipilih"
-            onChange={handleInputChange}
-        />
+    <SelectFormComponent
+        validasi={true}
+        name="paketVideo"
+        label="Paket Undangan Video/Jpeg"
+        value={paketVideo}
+        optionsTitle="Silakan Pilih Paket"
+        options={videoPackages}
+        errorText="Paket Belum Dipilih"
+        onChange={handleInputChange}
+    />
+    <SelectFormComponent
+        validasi={true} 
+        label="Foto Undangan"
+        name="foto"
+        value={foto}
+        optionsTitle="Silakan Pilih"
+        options={fotoPackages}
+        errorText="Foto Belum Dipilih"
+        onChange={handleInputChange}
+    />
     <Form.Group>
         <Form.Label className="mb-0">Filter Instagram</Form.Label>
         <Form.Label className="labelFormFilter">
@@ -97,16 +107,6 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
         )}
     </Form.Group>
 
-    <SelectFormComponent
-    validasi={true} 
-    label="Menggunakan Foto"
-    name="foto"
-    value={foto}
-    optionsTitle="Silakan Pilih"
-    options={fotoPackages}
-    errorText="Foto Belum Dipilih"
-    onChange={handleInputChange}
-    />
     <SelectFormComponent
     validasi={true} 
     label="Tambahkan Barcode"
@@ -157,7 +157,7 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
             <TextInputFormComponent
             validasi={true} 
             classEffect="mb-2"
-            label="Backsound Undangan Website"
+            label="Masukkan Link Youtube"
             name="musik"
             value={musik}
             placeholder="Masukkan Link Youtube"
@@ -166,7 +166,7 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
             />
             <TextInputFormComponent
             validasi={true} 
-            label="Backsound Undangan Video"
+            label="Masukkan Link Youtube"
             name="musik2"
             value={musik2}
             placeholder="Masukkan Link Youtube"

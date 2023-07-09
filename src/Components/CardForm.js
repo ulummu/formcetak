@@ -9,6 +9,8 @@ import {
   checkSpecialChar,
   handleFormInput,
   handleFormSubmit,
+  jumlahFunc,
+  ubahFunction,
 } from "../helpers/FormHelper";
 import {
   initialFormValues,
@@ -27,7 +29,11 @@ import DataBundling from "../Points/DataBundling";
 export default function CardForm(props) {
   const [validated, setValidated] = useState(false);
   const [values, setValues] = useState(initialFormValues);
+  const [kata, setKata] = useState("");
   const [visible, setVisible] = useState(false);
+  const [visibleButtonJumlah, setVisibleButtonJumlah] = useState(true);
+  const [visibleUnder, setVisibleUnder] = useState(false);
+  const [visibleHigher, setVisibleHigher] = useState(false);
   const [visibleWebsite, setVisibleWebsite] = useState(false);
   const [visibleVideo, setVisibleVideo] = useState(false);
   const [visibleWebnVid, setVisibleWebnVid] = useState(false);
@@ -35,7 +41,7 @@ export default function CardForm(props) {
   const [visibleAkad, setVisibleAkad] = useState(false);
   const [visibleResepsi, setVisibleResepsi] = useState(false);
   const [visibleFilter, setVisibleFilter] = useState(false);
-  const [data, setData] = useState("");
+  const [dataAkad, setDataAkad] = useState("");
   const [lBarcode, setLBarcode] = useState("");
   const [noCatin, setNoCatin] = useState("");
   const [dataResepsi, setDataResepsi] = useState("");
@@ -49,11 +55,22 @@ export default function CardForm(props) {
   //   e.preventDefault();
   //   e.stopPropagation();
   // }
+  const jumFun = () =>
+    jumlahFunc(
+      values,
+      setKata,
+      setVisibleUnder,
+      setVisibleHigher,
+      setVisibleButtonJumlah
+    );
+  const ubahFunc = () =>
+    ubahFunction(setVisibleUnder, setVisibleHigher, setVisibleButtonJumlah);
   const handleInputChange = (event) =>
     handleFormInput(
       event,
       values,
-      data,
+      kata,
+      dataAkad,
       temp,
       noCatin,
       lBarcode,
@@ -67,6 +84,9 @@ export default function CardForm(props) {
       visibleAkad,
       visibleResepsi,
       visibleFilter,
+      visibleUnder,
+      visibleHigher,
+      visibleButtonJumlah,
       setVisibleWebsite,
       setVisibleVideo,
       setVisibleWebnVid,
@@ -81,14 +101,18 @@ export default function CardForm(props) {
       setDataBundling,
       setVisibleAkad,
       setVisibleResepsi,
-      setData,
-      setDataResepsi
+      setDataAkad,
+      setDataResepsi,
+      setVisibleUnder,
+      setVisibleHigher,
+      setVisibleButtonJumlah
     );
   const handleSubmit = (event) =>
     handleFormSubmit(
       event,
       values,
-      data,
+      kata,
+      dataAkad,
       temp,
       noCatin,
       lBarcode,
@@ -102,6 +126,9 @@ export default function CardForm(props) {
       visibleAkad,
       visibleResepsi,
       visibleFilter,
+      visibleUnder,
+      visibleHigher,
+      visibleButtonJumlah,
       setVisibleWebsite,
       setVisibleVideo,
       setVisibleWebnVid,
@@ -116,7 +143,10 @@ export default function CardForm(props) {
       setDataBundling,
       setVisibleAkad,
       setVisibleResepsi,
-      setData,
+      setVisibleUnder,
+      setVisibleHigher,
+      setVisibleButtonJumlah,
+      setDataAkad,
       setDataResepsi,
       setValidated
     );
@@ -139,35 +169,13 @@ export default function CardForm(props) {
                 validated={validated}
                 onSubmit={handleSubmit}
               >
-                {/* Form model */}
-                <SelectFormComponent
-                  validasi={true}
-                  name="model"
-                  label="Model Undangan Cetak"
-                  defaultValue={values.model}
-                  optionsTitle="Silakan Pilih Model"
-                  options={modelThemes}
-                  errorText="Model Belum Dipilih"
-                  onChange={handleInputChange}
-                />
-
-                {/* Form Desain */}
-                <SelectFormComponent
-                  validasi={true}
-                  name="desain"
-                  label="Desain Undangan Cetak"
-                  defaultValue={values.desain}
-                  optionsTitle="Silakan Pilih Desain"
-                  options={designs}
-                  errorText="Desain Belum Dipilih"
-                  onChange={handleInputChange}
-                />
                 {/* Form Jumlah */}
                 <Form.Group className="mb-3">
                   <Form.Label className="labelForm">
                     Jumlah Undangan Cetak
                   </Form.Label>
                   <Form.Control
+                    disabled={!visibleButtonJumlah}
                     name="jumlah"
                     defaultValue={values.jumlah}
                     type="number"
@@ -178,164 +186,389 @@ export default function CardForm(props) {
                   <Form.Control.Feedback type="invalid">
                     Jumlah Belum Diisi
                   </Form.Control.Feedback>
+                  {!visibleButtonJumlah && (
+                    <Form.Label
+                      onClick={ubahFunc}
+                      className="float-end mt-1 mb-1 primary"
+                      style={{ color: "#0D6EFD" }}
+                    >
+                      ubah
+                    </Form.Label>
+                  )}
+                  {visibleButtonJumlah && (
+                    <Button onClick={jumFun} className="float-end mt-2 mb-1">
+                      Input
+                    </Button>
+                  )}
                 </Form.Group>
-                {/* Form Nama didahulukan */}
-                <SelectFormComponent
-                  validasi={true}
-                  name="namaAwal"
-                  label="Nama yang Didahulukan"
-                  defaultValue={values.namaAwal}
-                  optionsTitle="Silakan Pilih"
-                  options={namaPertama}
-                  errorText="Nama Belum Dipilih"
-                  onChange={handleInputChange}
-                />
-                {/* Form Mempelai */}
-                <DataMempelai
-                  panggilanWanita={values.panggilanWanita}
-                  lengkapWanita={values.lengkapWanita}
-                  wanitaAnakKe={values.wanitaAnakKe}
-                  namaBapakWanita={values.namaBapakWanita}
-                  namaIbuWanita={values.namaIbuWanita}
-                  panggilanPria={values.panggilanPria}
-                  lengkapPria={values.lengkapPria}
-                  priaAnakKe={values.priaAnakKe}
-                  namaBapakPria={values.namaBapakPria}
-                  namaIbuPria={values.namaIbuPria}
-                  handleInputChange={handleInputChange}
-                />
-                {/* Form Acara */}
-                <DataAcara
-                  hariAkad={values.hariAkad}
-                  akad={values.akad}
-                  pukulAkad={values.pukulAkad}
-                  zonaWaktuAkad={values.zonaWaktuAkad}
-                  namaAcaraAkad={values.namaAcaraAkad}
-                  tempatAkad={values.tempatAkad}
-                  mapsAkad={values.mapsAkad}
-                  visiblAkad={visibleAkad}
-                  lainnyaAkad={values.lainnyaAkad}
-                  hariResepsi={values.hariResepsi}
-                  resepsi={values.resepsi}
-                  pukulResepsi={values.pukulResepsi}
-                  zonaWaktuResepsi={values.zonaWaktuResepsi}
-                  namaAcaraResepsi={values.namaAcaraResepsi}
-                  tempatResepsi={values.tempatResepsi}
-                  mapsResepsi={values.mapsResepsi}
-                  visiblResepsi={visibleResepsi}
-                  lainnyaResepsi={values.lainnyaResepsi}
-                  handleInputChange={handleInputChange}
-                />
+                {visibleUnder && (
+                  <>
+                    {/* Form model */}
+                    <SelectFormComponent
+                      validasi={true}
+                      name="model"
+                      label="Model Undangan Cetak"
+                      defaultValue={values.model}
+                      optionsTitle="Silakan Pilih Model"
+                      options={modelThemes}
+                      errorText="Model Belum Dipilih"
+                      onChange={handleInputChange}
+                    />
 
-                {/* Form Pengiriman */}
-                <DataAlamatKirim
-                  namaPenerimaUndangan={values.namaPenerimaUndangan}
-                  alamatPenerimaUndangan={values.alamatPenerimaUndangan}
-                  nomorPenerimaUndangan={values.nomorPenerimaUndangan}
-                  handleInputChange={handleInputChange}
-                />
+                    {/* Form Desain */}
+                    <SelectFormComponent
+                      validasi={true}
+                      name="desain"
+                      label="Desain Undangan Cetak"
+                      defaultValue={values.desain}
+                      optionsTitle="Silakan Pilih Desain"
+                      options={designs}
+                      errorText="Desain Belum Dipilih"
+                      onChange={handleInputChange}
+                    />
+                    {/* Form Nama didahulukan */}
+                    <SelectFormComponent
+                      validasi={true}
+                      name="namaAwal"
+                      label="Nama yang Didahulukan"
+                      defaultValue={values.namaAwal}
+                      optionsTitle="Silakan Pilih"
+                      options={namaPertama}
+                      errorText="Nama Belum Dipilih"
+                      onChange={handleInputChange}
+                    />
+                    {/* Form Mempelai */}
+                    <DataMempelai
+                      panggilanWanita={values.panggilanWanita}
+                      lengkapWanita={values.lengkapWanita}
+                      wanitaAnakKe={values.wanitaAnakKe}
+                      namaBapakWanita={values.namaBapakWanita}
+                      namaIbuWanita={values.namaIbuWanita}
+                      panggilanPria={values.panggilanPria}
+                      lengkapPria={values.lengkapPria}
+                      priaAnakKe={values.priaAnakKe}
+                      namaBapakPria={values.namaBapakPria}
+                      namaIbuPria={values.namaIbuPria}
+                      handleInputChange={handleInputChange}
+                    />
+                    {/* Form Acara */}
+                    <DataAcara
+                      hariAkad={values.hariAkad}
+                      akad={values.akad}
+                      pukulAkad={values.pukulAkad}
+                      zonaWaktuAkad={values.zonaWaktuAkad}
+                      namaAcaraAkad={values.namaAcaraAkad}
+                      tempatAkad={values.tempatAkad}
+                      mapsAkad={values.mapsAkad}
+                      visiblAkad={visibleAkad}
+                      lainnyaAkad={values.lainnyaAkad}
+                      hariResepsi={values.hariResepsi}
+                      resepsi={values.resepsi}
+                      pukulResepsi={values.pukulResepsi}
+                      zonaWaktuResepsi={values.zonaWaktuResepsi}
+                      namaAcaraResepsi={values.namaAcaraResepsi}
+                      tempatResepsi={values.tempatResepsi}
+                      mapsResepsi={values.mapsResepsi}
+                      visiblResepsi={visibleResepsi}
+                      lainnyaResepsi={values.lainnyaResepsi}
+                      handleInputChange={handleInputChange}
+                    />
 
-                {/* Form Bundling */}
-                <SelectFormComponent
-                  validasi={true}
-                  name="bundling"
-                  label="Bundling"
-                  defaultValue={values.bundling}
-                  optionsTitle="Silakan Pilih Bundling"
-                  options={pilihanBundling}
-                  errorText="Bundling Belum Dipilih"
-                  onChange={handleInputChange}
-                />
-                {visibleWebsite && (
-                  <DataWebsite
-                    temaWebsite={values.temaWebsite}
-                    bahasa={values.bahasa}
-                    pakaiFilter={values.pakaiFilter}
-                    visiblFilter={visibleFilter}
-                    filterig={values.filterig}
-                    frame={values.frame}
-                    foto={values.foto}
-                    musik={values.musik}
-                    loveStory={values.loveStory}
-                    live={values.live}
-                    nomorRek={values.nomorRek}
-                    namaBank={values.namaBank}
-                    atasNama={values.atasNama}
-                    nomorRek2={values.nomorRek2}
-                    namaBank2={values.namaBank2}
-                    atasNama2={values.atasNama2}
-                    namaPenerima={values.namaPenerima}
-                    alamat={values.alamat}
-                    waKonfirmasi={values.waKonfirmasi}
-                    daftarHadir={values.daftarHadir}
-                    visibl={visible}
-                    nomorCatin={values.nomorCatin}
-                    checkSpecialChar={checkSpecialChar}
-                    capitalFirstWord={capitalFirstWord}
-                    handleInputChange={handleInputChange}
-                  />
+                    {/* Form Pengiriman */}
+                    <DataAlamatKirim
+                      namaPenerimaUndangan={values.namaPenerimaUndangan}
+                      alamatPenerimaUndangan={values.alamatPenerimaUndangan}
+                      nomorPenerimaUndangan={values.nomorPenerimaUndangan}
+                      handleInputChange={handleInputChange}
+                    />
+
+                    {/* Form Bundling */}
+                    <SelectFormComponent
+                      validasi={true}
+                      name="bundling"
+                      label={kata}
+                      defaultValue={values.bundling}
+                      optionsTitle="Silakan Pilih Bundling"
+                      options={pilihanBundling}
+                      errorText="Bundling Belum Dipilih"
+                      onChange={handleInputChange}
+                    />
+                    {visibleWebsite && (
+                      <DataWebsite
+                        temaWebsite={values.temaWebsite}
+                        bahasa={values.bahasa}
+                        pakaiFilter={values.pakaiFilter}
+                        visiblFilter={visibleFilter}
+                        filterig={values.filterig}
+                        frame={values.frame}
+                        foto={values.foto}
+                        musik={values.musik}
+                        loveStory={values.loveStory}
+                        live={values.live}
+                        nomorRek={values.nomorRek}
+                        namaBank={values.namaBank}
+                        atasNama={values.atasNama}
+                        nomorRek2={values.nomorRek2}
+                        namaBank2={values.namaBank2}
+                        atasNama2={values.atasNama2}
+                        namaPenerima={values.namaPenerima}
+                        alamat={values.alamat}
+                        waKonfirmasi={values.waKonfirmasi}
+                        daftarHadir={values.daftarHadir}
+                        visibl={visible}
+                        nomorCatin={values.nomorCatin}
+                        checkSpecialChar={checkSpecialChar}
+                        capitalFirstWord={capitalFirstWord}
+                        handleInputChange={handleInputChange}
+                      />
+                    )}
+                    {visibleVideo && (
+                      <DataVideo
+                        temaVideo={values.temaVideo}
+                        paketVideo={values.paketVideo}
+                        pakaiFilter={values.pakaiFilter}
+                        visiblFilter={visibleFilter}
+                        filterig={values.filterig}
+                        frame={values.frame}
+                        foto={values.foto}
+                        barcode={values.barcode}
+                        visiblBarcode={visibleBarcode}
+                        linkBarcode={values.linkBarcode}
+                        denah={values.denah}
+                        musik={values.musik}
+                        handleInputChange={handleInputChange}
+                      />
+                    )}
+                    {visibleWebnVid && (
+                      <DataBundling
+                        temaWebsite={values.temaWebsite}
+                        bahasa={values.bahasa}
+                        temaVideo={values.temaVideo}
+                        paketVideo={values.paketVideo}
+                        pakaiFilter={values.pakaiFilter}
+                        visiblFilter={visibleFilter}
+                        filterig={values.filterig}
+                        frame={values.frame}
+                        barcode={values.barcode}
+                        visiblBarcode={visibleBarcode}
+                        linkBarcode={values.linkBarcode}
+                        denah={values.denah}
+                        foto={values.foto}
+                        musik={values.musik}
+                        musik2={values.musik2}
+                        loveStory={values.loveStory}
+                        live={values.live}
+                        nomorRek={values.nomorRek}
+                        namaBank={values.namaBank}
+                        atasNama={values.atasNama}
+                        nomorRek2={values.nomorRek2}
+                        namaBank2={values.namaBank2}
+                        atasNama2={values.atasNama2}
+                        namaPenerima={values.namaPenerima}
+                        alamat={values.alamat}
+                        waKonfirmasi={values.waKonfirmasi}
+                        daftarHadir={values.daftarHadir}
+                        visibl={visible}
+                        nomorCatin={values.nomorCatin}
+                        checkSpecialChar={checkSpecialChar}
+                        capitalFirstWord={capitalFirstWord}
+                        handleInputChange={handleInputChange}
+                      />
+                    )}
+                    <Form.Label className="nb">
+                      <strong>NB</strong> : Jika ada tambahan data atau yang
+                      lainnya, silakan hubungi admin
+                    </Form.Label>
+                    <Button type="submit" className="Button mb-2">
+                      <i className="bi bi-whatsapp me-2"></i>
+                      Kirim
+                    </Button>
+                  </>
                 )}
-                {visibleVideo && (
-                  <DataVideo
-                    temaVideo={values.temaVideo}
-                    paketVideo={values.paketVideo}
-                    pakaiFilter={values.pakaiFilter}
-                    visiblFilter={visibleFilter}
-                    filterig={values.filterig}
-                    frame={values.frame}
-                    foto={values.foto}
-                    barcode={values.barcode}
-                    visiblBarcode={visibleBarcode}
-                    linkBarcode={values.linkBarcode}
-                    denah={values.denah}
-                    musik={values.musik}
-                    handleInputChange={handleInputChange}
-                  />
+                {visibleHigher && (
+                  <>
+                    {/* Form model */}
+                    <SelectFormComponent
+                      validasi={true}
+                      name="model"
+                      label="Model Undangan Cetak"
+                      defaultValue={values.model}
+                      optionsTitle="Silakan Pilih Model"
+                      options={modelThemes}
+                      errorText="Model Belum Dipilih"
+                      onChange={handleInputChange}
+                    />
+
+                    {/* Form Desain */}
+                    <SelectFormComponent
+                      validasi={true}
+                      name="desain"
+                      label="Desain Undangan Cetak"
+                      defaultValue={values.desain}
+                      optionsTitle="Silakan Pilih Desain"
+                      options={designs}
+                      errorText="Desain Belum Dipilih"
+                      onChange={handleInputChange}
+                    />
+                    {/* Form Nama didahulukan */}
+                    <SelectFormComponent
+                      validasi={true}
+                      name="namaAwal"
+                      label="Nama yang Didahulukan"
+                      defaultValue={values.namaAwal}
+                      optionsTitle="Silakan Pilih"
+                      options={namaPertama}
+                      errorText="Nama Belum Dipilih"
+                      onChange={handleInputChange}
+                    />
+                    {/* Form Mempelai */}
+                    <DataMempelai
+                      panggilanWanita={values.panggilanWanita}
+                      lengkapWanita={values.lengkapWanita}
+                      wanitaAnakKe={values.wanitaAnakKe}
+                      namaBapakWanita={values.namaBapakWanita}
+                      namaIbuWanita={values.namaIbuWanita}
+                      panggilanPria={values.panggilanPria}
+                      lengkapPria={values.lengkapPria}
+                      priaAnakKe={values.priaAnakKe}
+                      namaBapakPria={values.namaBapakPria}
+                      namaIbuPria={values.namaIbuPria}
+                      handleInputChange={handleInputChange}
+                    />
+                    {/* Form Acara */}
+                    <DataAcara
+                      hariAkad={values.hariAkad}
+                      akad={values.akad}
+                      pukulAkad={values.pukulAkad}
+                      zonaWaktuAkad={values.zonaWaktuAkad}
+                      namaAcaraAkad={values.namaAcaraAkad}
+                      tempatAkad={values.tempatAkad}
+                      mapsAkad={values.mapsAkad}
+                      visiblAkad={visibleAkad}
+                      lainnyaAkad={values.lainnyaAkad}
+                      hariResepsi={values.hariResepsi}
+                      resepsi={values.resepsi}
+                      pukulResepsi={values.pukulResepsi}
+                      zonaWaktuResepsi={values.zonaWaktuResepsi}
+                      namaAcaraResepsi={values.namaAcaraResepsi}
+                      tempatResepsi={values.tempatResepsi}
+                      mapsResepsi={values.mapsResepsi}
+                      visiblResepsi={visibleResepsi}
+                      lainnyaResepsi={values.lainnyaResepsi}
+                      handleInputChange={handleInputChange}
+                    />
+
+                    {/* Form Pengiriman */}
+                    <DataAlamatKirim
+                      namaPenerimaUndangan={values.namaPenerimaUndangan}
+                      alamatPenerimaUndangan={values.alamatPenerimaUndangan}
+                      nomorPenerimaUndangan={values.nomorPenerimaUndangan}
+                      handleInputChange={handleInputChange}
+                    />
+
+                    {/* Form Bundling */}
+                    <SelectFormComponent
+                      validasi={true}
+                      name="bundling"
+                      label={kata}
+                      defaultValue={values.bundling}
+                      optionsTitle="Silakan Pilih Bundling"
+                      options={pilihanBundling}
+                      errorText="Bundling Belum Dipilih"
+                      onChange={handleInputChange}
+                    />
+                    {visibleWebsite && (
+                      <DataWebsite
+                        temaWebsite={values.temaWebsite}
+                        bahasa={values.bahasa}
+                        pakaiFilter={values.pakaiFilter}
+                        visiblFilter={visibleFilter}
+                        filterig={values.filterig}
+                        frame={values.frame}
+                        foto={values.foto}
+                        musik={values.musik}
+                        loveStory={values.loveStory}
+                        live={values.live}
+                        nomorRek={values.nomorRek}
+                        namaBank={values.namaBank}
+                        atasNama={values.atasNama}
+                        nomorRek2={values.nomorRek2}
+                        namaBank2={values.namaBank2}
+                        atasNama2={values.atasNama2}
+                        namaPenerima={values.namaPenerima}
+                        alamat={values.alamat}
+                        waKonfirmasi={values.waKonfirmasi}
+                        daftarHadir={values.daftarHadir}
+                        visibl={visible}
+                        nomorCatin={values.nomorCatin}
+                        checkSpecialChar={checkSpecialChar}
+                        capitalFirstWord={capitalFirstWord}
+                        handleInputChange={handleInputChange}
+                      />
+                    )}
+                    {visibleVideo && (
+                      <DataVideo
+                        temaVideo={values.temaVideo}
+                        paketVideo={values.paketVideo}
+                        pakaiFilter={values.pakaiFilter}
+                        visiblFilter={visibleFilter}
+                        filterig={values.filterig}
+                        frame={values.frame}
+                        foto={values.foto}
+                        barcode={values.barcode}
+                        visiblBarcode={visibleBarcode}
+                        linkBarcode={values.linkBarcode}
+                        denah={values.denah}
+                        musik={values.musik}
+                        handleInputChange={handleInputChange}
+                      />
+                    )}
+                    {visibleWebnVid && (
+                      <DataBundling
+                        temaWebsite={values.temaWebsite}
+                        bahasa={values.bahasa}
+                        temaVideo={values.temaVideo}
+                        paketVideo={values.paketVideo}
+                        pakaiFilter={values.pakaiFilter}
+                        visiblFilter={visibleFilter}
+                        filterig={values.filterig}
+                        frame={values.frame}
+                        barcode={values.barcode}
+                        visiblBarcode={visibleBarcode}
+                        linkBarcode={values.linkBarcode}
+                        denah={values.denah}
+                        foto={values.foto}
+                        musik={values.musik}
+                        musik2={values.musik2}
+                        loveStory={values.loveStory}
+                        live={values.live}
+                        nomorRek={values.nomorRek}
+                        namaBank={values.namaBank}
+                        atasNama={values.atasNama}
+                        nomorRek2={values.nomorRek2}
+                        namaBank2={values.namaBank2}
+                        atasNama2={values.atasNama2}
+                        namaPenerima={values.namaPenerima}
+                        alamat={values.alamat}
+                        waKonfirmasi={values.waKonfirmasi}
+                        daftarHadir={values.daftarHadir}
+                        visibl={visible}
+                        nomorCatin={values.nomorCatin}
+                        checkSpecialChar={checkSpecialChar}
+                        capitalFirstWord={capitalFirstWord}
+                        handleInputChange={handleInputChange}
+                      />
+                    )}
+                    <Form.Label className="nb">
+                      <strong>NB</strong> : Jika ada tambahan data atau yang
+                      lainnya, silakan hubungi admin
+                    </Form.Label>
+                    <Button type="submit" className="Button mb-2">
+                      <i className="bi bi-whatsapp me-2"></i>
+                      Kirim
+                    </Button>
+                  </>
                 )}
-                {visibleWebnVid && (
-                  <DataBundling
-                    temaWebsite={values.temaWebsite}
-                    bahasa={values.bahasa}
-                    temaVideo={values.temaVideo}
-                    paketVideo={values.paketVideo}
-                    pakaiFilter={values.pakaiFilter}
-                    visiblFilter={visibleFilter}
-                    filterig={values.filterig}
-                    frame={values.frame}
-                    barcode={values.barcode}
-                    visiblBarcode={visibleBarcode}
-                    linkBarcode={values.linkBarcode}
-                    denah={values.denah}
-                    foto={values.foto}
-                    musik={values.musik}
-                    musik2={values.musik2}
-                    loveStory={values.loveStory}
-                    live={values.live}
-                    nomorRek={values.nomorRek}
-                    namaBank={values.namaBank}
-                    atasNama={values.atasNama}
-                    nomorRek2={values.nomorRek2}
-                    namaBank2={values.namaBank2}
-                    atasNama2={values.atasNama2}
-                    namaPenerima={values.namaPenerima}
-                    alamat={values.alamat}
-                    waKonfirmasi={values.waKonfirmasi}
-                    daftarHadir={values.daftarHadir}
-                    visibl={visible}
-                    nomorCatin={values.nomorCatin}
-                    checkSpecialChar={checkSpecialChar}
-                    capitalFirstWord={capitalFirstWord}
-                    handleInputChange={handleInputChange}
-                  />
-                )}
-                <Form.Label className="nb">
-                  <strong>NB</strong> : Jika ada tambahan data atau yang
-                  lainnya, silakan hubungi admin
-                </Form.Label>
-                <Button type="submit" className="Button mb-2">
-                  <i className="bi bi-whatsapp me-2"></i>
-                  Kirim
-                </Button>
               </Form>
             </Card.Body>
           </Card>

@@ -77,7 +77,7 @@ const DataVideo = ({ temaVideo, paketVideo, pakaiFilter, visiblFilter, filterig,
         
         <SelectFormComponent
         validasi={true} 
-        label="Menggunakan Foto"
+        label="Foto Undangan"
         name="foto"
         value={foto}
         optionsTitle="Silakan Pilih"
@@ -136,10 +136,10 @@ const DataVideo = ({ temaVideo, paketVideo, pakaiFilter, visiblFilter, filterig,
         <Accordion.Body>
             <TextInputFormComponent
             validasi={true} 
-            label="Backsound Undangan"
+            label="Masukkan Link Youtube dan Detik Lagu Dimulai"
             name="musik"
             value={musik}
-            placeholder="Masukkan Link Youtube"
+            placeholder="Masukkan Link Youtube dan Detik Lagu Dimulai"
             errorText="Musik Belum Diisi"
             onChange={handleInputChange}
             />
