@@ -164,8 +164,8 @@ export const handleFormInput = (
   } else {
     setDataResepsi("%0a-Acara : " + values.namaAcaraResepsi);
   }
-  if (e.target.name === "nomorCatin") {
-    setNoCatin("%0a-Nomor Calon Pengantin : " + e.target.value);
+  if (event.target.name === "nomorCatin") {
+    setNoCatin("%0a-Nomor Calon Pengantin : " + event.target.value);
   }
   if (!!values.linkBarcode) {
     setLBarcode("%0a-Link Barcode : " + values.linkBarcode);
