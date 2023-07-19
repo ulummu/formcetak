@@ -73,6 +73,22 @@ export const initialFormValues = {
   frame: "",
 };
 
+export const jumlahChosen = [
+  { value: "30 pcs", text: "30 pcs" },
+  { value: "50 pcs", text: "50 pcs" },
+  { value: "80 pcs", text: "80 pcs" },
+  { value: "100 pcs", text: "100 pcs" },
+  { value: "150 pcs", text: "150 pcs" },
+  { value: "200 pcs", text: "200 pcs" },
+  { value: "250 pcs", text: "250 pcs" },
+  { value: "300 pcs", text: "300 pcs" },
+  { value: "400 pcs", text: "400 pcs" },
+  { value: "500 pcs", text: "500 pcs" },
+  { value: "750 pcs", text: "750 pcs" },
+  { value: "1000 pcs", text: "1000 pcs" },
+  { value: "1500 pcs", text: "1500 pcs" },
+  { value: "2000 pcs", text: "2000 pcs" },
+];
 export const modelThemes = [
   { value: "Tema A", text: "Tema A" },
   { value: "Tema B", text: "Tema B" },

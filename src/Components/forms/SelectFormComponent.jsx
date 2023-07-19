@@ -5,6 +5,7 @@ const SelectFormComponent = ({
   validasi,
   name,
   classEffect,
+  disable,
   label,
   value,
   optionsTitle,
@@ -15,7 +16,7 @@ const SelectFormComponent = ({
   return (
     <Form.Group className="mb-2">
       <Form.Label className={classEffect}>{label}</Form.Label>
-      <Form.Select name={name} value={value} onChange={onChange} required={validasi}>
+      <Form.Select name={name} value={value} onChange={onChange} required={validasi} disabled={disable}>
         <option value="" hidden>
           {optionsTitle}
         </option>

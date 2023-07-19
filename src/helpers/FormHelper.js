@@ -20,16 +20,16 @@ export const jumlahFunc = (
   setVisibleHigher,
   setVisibleButtonJumlah
 ) => {
-  if (values.jumlah <= 100 && values.jumlah > null) {
+  if (values.jumlah <= 150 && values.jumlah > null) {
     setVisibleUnder(true);
     setVisibleHigher(false);
     setVisibleButtonJumlah(false);
-    setKata("Free");
+    setKata("Include");
   } else {
     setVisibleHigher(true);
     setVisibleUnder(false);
     setVisibleButtonJumlah(false);
-    setKata("Include");
+    setKata("Free");
   }
 };
 export const ubahFunction = (
@@ -189,12 +189,10 @@ export const handleFormInput = (
     ...values,
     [name]: value,
   });
-  console.log(values);
 };
 export const handleFormSubmit = (
   event,
   values,
-  kata,
   dataAkad,
   temp,
   noCatin,
@@ -202,33 +200,6 @@ export const handleFormSubmit = (
   dataResepsi,
   filter,
   dataBundling,
-  visible,
-  visibleWebsite,
-  visibleVideo,
-  visibleWebnVid,
-  visibleAkad,
-  visibleResepsi,
-  visibleFilter,
-  visibleUnder,
-  visibleHigher,
-  setVisibleWebsite,
-  setVisibleVideo,
-  setVisibleWebnVid,
-  setLBarcode,
-  setFilter,
-  setValues,
-  setTemp,
-  setVisible,
-  setNoCatin,
-  setVisibleFilter,
-  setVisibleBarcode,
-  setDataBundling,
-  setVisibleAkad,
-  setVisibleResepsi,
-  setDataAkad,
-  setDataResepsi,
-  setVisibleUnder,
-  setVisibleHigher,
   setValidated
 ) => {
   const form = event.currentTarget;

@@ -18,6 +18,7 @@ import {
   designs,
   namaPertama,
   pilihanBundling,
+  jumlahChosen,
 } from "../constans/FormConstans";
 import DataMempelai from "../Points/DataMempelai";
 import DataAcara from "../Points/DataAcara";
@@ -111,7 +112,6 @@ export default function CardForm(props) {
     handleFormSubmit(
       event,
       values,
-      kata,
       dataAkad,
       temp,
       noCatin,
@@ -119,35 +119,6 @@ export default function CardForm(props) {
       dataResepsi,
       filter,
       dataBundling,
-      visible,
-      visibleWebsite,
-      visibleVideo,
-      visibleWebnVid,
-      visibleAkad,
-      visibleResepsi,
-      visibleFilter,
-      visibleUnder,
-      visibleHigher,
-      visibleButtonJumlah,
-      setVisibleWebsite,
-      setVisibleVideo,
-      setVisibleWebnVid,
-      setLBarcode,
-      setFilter,
-      setValues,
-      setTemp,
-      setVisible,
-      setNoCatin,
-      setVisibleFilter,
-      setVisibleBarcode,
-      setDataBundling,
-      setVisibleAkad,
-      setVisibleResepsi,
-      setVisibleUnder,
-      setVisibleHigher,
-      setVisibleButtonJumlah,
-      setDataAkad,
-      setDataResepsi,
       setValidated
     );
   return (
@@ -171,21 +142,17 @@ export default function CardForm(props) {
               >
                 {/* Form Jumlah */}
                 <Form.Group className="mb-3">
-                  <Form.Label className="labelForm">
-                    Jumlah Undangan Cetak
-                  </Form.Label>
-                  <Form.Control
-                    disabled={!visibleButtonJumlah}
+                  <SelectFormComponent
+                    disable={!visibleButtonJumlah}
+                    validasi={true}
                     name="jumlah"
+                    label="Silakan Masukan Jumlah"
                     defaultValue={values.jumlah}
-                    type="number"
-                    placeholder="Silakan Masukan Jumlah"
+                    optionsTitle="Silakan Pilih Jumlah"
+                    options={jumlahChosen}
+                    errorText="Jumlah Belum Dipilih"
                     onChange={handleInputChange}
-                    required
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Jumlah Belum Diisi
-                  </Form.Control.Feedback>
                   {!visibleButtonJumlah && (
                     <Form.Label
                       onClick={ubahFunc}
