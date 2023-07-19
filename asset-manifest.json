@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/formcetak/static/css/main.e198d161.css",
-    "main.js": "/formcetak/static/js/main.4e9e5321.js",
+    "main.js": "/formcetak/static/js/main.7ea9071a.js",
     "static/media/bootstrap-icons.woff?": "/formcetak/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
     "static/media/logo.png": "/formcetak/static/media/logo.0ba1a13e085bfffe2e8e.png",
     "static/media/bootstrap-icons.woff2?": "/formcetak/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
     "index.html": "/formcetak/index.html",
     "main.e198d161.css.map": "/formcetak/static/css/main.e198d161.css.map",
-    "main.4e9e5321.js.map": "/formcetak/static/js/main.4e9e5321.js.map"
+    "main.7ea9071a.js.map": "/formcetak/static/js/main.7ea9071a.js.map"
   },
   "entrypoints": [
     "static/css/main.e198d161.css",
-    "static/js/main.4e9e5321.js"
+    "static/js/main.7ea9071a.js"
   ]
 }
