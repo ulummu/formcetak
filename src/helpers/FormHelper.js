@@ -20,7 +20,7 @@ export const jumlahFunc = (
   setVisibleHigher,
   setVisibleButtonJumlah
 ) => {
-  if (values.jumlah <= 150 && values.jumlah > null) {
+  if (values.jumlah <= 150) {
     setVisibleUnder(true);
     setVisibleHigher(false);
     setVisibleButtonJumlah(false);
