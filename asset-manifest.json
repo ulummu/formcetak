@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/formcetak/static/css/main.e198d161.css",
-    "main.js": "/formcetak/static/js/main.7ea9071a.js",
+    "main.css": "/formcetak/static/css/main.a9745759.css",
+    "main.js": "/formcetak/static/js/main.7f0aba01.js",
     "static/media/bootstrap-icons.woff?": "/formcetak/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
     "static/media/logo.png": "/formcetak/static/media/logo.0ba1a13e085bfffe2e8e.png",
     "static/media/bootstrap-icons.woff2?": "/formcetak/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
     "index.html": "/formcetak/index.html",
-    "main.e198d161.css.map": "/formcetak/static/css/main.e198d161.css.map",
-    "main.7ea9071a.js.map": "/formcetak/static/js/main.7ea9071a.js.map"
+    "main.a9745759.css.map": "/formcetak/static/css/main.a9745759.css.map",
+    "main.7f0aba01.js.map": "/formcetak/static/js/main.7f0aba01.js.map"
   },
   "entrypoints": [
-    "static/css/main.e198d161.css",
-    "static/js/main.7ea9071a.js"
+    "static/css/main.a9745759.css",
+    "static/js/main.7f0aba01.js"
   ]
 }
