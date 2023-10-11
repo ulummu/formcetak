@@ -69,19 +69,19 @@ const DataWeddingGift = ({ loveStory, live, nomorRek, namaBank, atasNama, nomorR
                       <TextInputFormComponent
                       validasi={false}
                       classEffect="mb-3" 
-                      label="Nomor Rekening"
-                      name="nomorRek"
-                      value={nomorRek}
-                      placeholder="Nomor Rekening"
+                      label="Nama Bank"
+                      name="namaBank"
+                      value={namaBank}
+                      placeholder="Nama Bank"
                       onChange={handleInputChange}
                       />
                       <TextInputFormComponent
                       validasi={false}
                       classEffect="mb-3" 
-                      label="Nama Bank"
-                      name="namaBank"
-                      value={namaBank}
-                      placeholder="Nama Bank"
+                      label="Nomor Rekening"
+                      name="nomorRek"
+                      value={nomorRek}
+                      placeholder="Nomor Rekening"
                       onChange={handleInputChange}
                       />
                       <TextInputFormComponent
@@ -101,15 +101,6 @@ const DataWeddingGift = ({ loveStory, live, nomorRek, namaBank, atasNama, nomorR
                       Amplop Digital 2
                     </Accordion.Header>
                     <Accordion.Body>
-                    <TextInputFormComponent
-                      validasi={false}
-                      classEffect="mb-3" 
-                      label="Nomor Rekening"
-                      name="nomorRek2"
-                      value={nomorRek2}
-                      placeholder="Nomor Rekening"
-                      onChange={handleInputChange}
-                      />
                       <TextInputFormComponent
                       validasi={false}
                       classEffect="mb-3" 
@@ -117,6 +108,15 @@ const DataWeddingGift = ({ loveStory, live, nomorRek, namaBank, atasNama, nomorR
                       name="namaBank2"
                       value={namaBank2}
                       placeholder="Nama Bank"
+                      onChange={handleInputChange}
+                      />
+                    <TextInputFormComponent
+                      validasi={false}
+                      classEffect="mb-3" 
+                      label="Nomor Rekening"
+                      name="nomorRek2"
+                      value={nomorRek2}
+                      placeholder="Nomor Rekening"
                       onChange={handleInputChange}
                       />
                       <TextInputFormComponent

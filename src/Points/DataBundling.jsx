@@ -109,7 +109,7 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
 
     <SelectFormComponent
     validasi={true} 
-    label="Tambahkan Barcode"
+    label="Tambahkan Barcode Lokasi"
     name="barcode"
     value={barcode}
     optionsTitle="Silakan Pilih"
@@ -123,9 +123,9 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
         <TextInputFormComponent
         validasi={true} 
         classEffect="formTambah mt-3"
-        label="Link Barcode"
+        label="Link Google Maps"
         name="linkBarcode"
-        placeholder="Link Barcode"
+        placeholder="Link Google Maps"
         value={linkBarcode}
         errorText="Link Belum Diisi"
         onChange={handleInputChange}
@@ -157,19 +157,19 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
             <TextInputFormComponent
             validasi={true} 
             classEffect="mb-2"
-            label="Masukkan Link Youtube"
-            name="musik"
-            value={musik}
-            placeholder="Masukkan Link Youtube"
+            label="Backsound Video/Jpeg"
+            name="musik2"
+            value={musik2}
+            placeholder="Backsound Video/Jpeg"
             errorText="Musik Belum Diisi"
             onChange={handleInputChange}
             />
             <TextInputFormComponent
             validasi={true} 
-            label="Masukkan Link Youtube"
-            name="musik2"
-            value={musik2}
-            placeholder="Masukkan Link Youtube"
+            label="Backsound Website"
+            name="musik"
+            value={musik}
+            placeholder="Backsound Website"
             errorText="Musik Belum Diisi"
             onChange={handleInputChange}
             />

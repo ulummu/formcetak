@@ -72,61 +72,67 @@ export const initialFormValues = {
   filterig: "",
   frame: "",
 };
-
+export const initialJumlah = {
+  errorText: "",
+  display: "none",
+  jumlah: "",
+  jumlahLain: false,
+  visibleJumlah: false,
+  visibleUnder: false,
+  visibleHigher: false,
+  visibleButtonJumlah: true,
+  kata: "",
+};
 export const jumlahChosen = [
   { value: "30", text: "30" },
   { value: "50", text: "50" },
   { value: "80", text: "80" },
   { value: "100", text: "100" },
-  { value: "150", text: "150" },
-  { value: "200", text: "200" },
-  { value: "250", text: "250" },
-  { value: "300", text: "300" },
-  { value: "400", text: "400" },
-  { value: "500", text: "500" },
-  { value: "750", text: "750" },
-  { value: "1000", text: "1000" },
-  { value: "1500", text: "1500" },
-  { value: "2000", text: "2000" },
+  { value: "Jumlah lain", text: "Jumlah lain" },
 ];
 export const modelThemes = [
-  { value: "Tema A", text: "Tema A" },
-  { value: "Tema B", text: "Tema B" },
-  { value: "Tema D", text: "Tema D" },
+  { value: "Model A", text: "Model A" },
+  { value: "Model B", text: "Model B" },
+  { value: "Model D", text: "Model D" },
 ];
 
 export const designs = [
-  { value: "Desain F", text: "Desain F" },
-  { value: "Desain H", text: "Desain H" },
-  { value: "Desain Q", text: "Desain Q" },
-  { value: "Desain R", text: "Desain R" },
-  { value: "Desain S", text: "Desain S" },
-  { value: "Desain W", text: "Desain W" },
-  { value: "Desain X", text: "Desain X" },
-  { value: "Desain Z", text: "Desain Z" },
-  { value: "Desain AA", text: "Desain AA" },
-  { value: "Desain AC", text: "Desain AC" },
-  { value: "Desain AE", text: "Desain AE" },
-  { value: "Desain CA", text: "Desain CA" },
-  { value: "Desain JAWA", text: "Desain JAWA" },
-  { value: "Desain BATAK", text: "Desain BATAK" },
-  { value: "Desain COKLAT BARU", text: "Desain COKLAT BARU" },
-  { value: "Desain PINK", text: "Desain PINK" },
+  { value: "Tema F", text: "Tema F" },
+  { value: "Tema H", text: "Tema H" },
+  { value: "Tema Q", text: "Tema Q" },
+  { value: "Tema R", text: "Tema R" },
+  { value: "Tema S", text: "Tema S" },
+  { value: "Tema W", text: "Tema W" },
+  { value: "Tema X", text: "Tema X" },
+  { value: "Tema Z", text: "Tema Z" },
+  { value: "Tema AA", text: "Tema AA" },
+  { value: "Tema AC", text: "Tema AC" },
+  { value: "Tema AE", text: "Tema AE" },
+  { value: "Tema CA", text: "Tema CA" },
+  { value: "Tema JAWA", text: "Tema JAWA" },
+  { value: "Tema BATAK", text: "Tema BATAK" },
+  { value: "Tema COKLAT BARU", text: "Tema COKLAT BARU" },
+  { value: "Tema PINK", text: "Tema PINK" },
 ];
 
 export const pilihanBundling = [
   { value: "Website", text: "Website" },
   { value: "Video/Jpeg", text: "Video/Jpeg" },
-  { value: "Website dan Video/Jpeg", text: "Website dan Video/Jpeg" },
+  {
+    value: "Website dan Video/Jpeg",
+    text: `Website dan Video/Jpeg<span>(dengan tambahan biaya)</span>`,
+  },
 ];
 export const nameAcaraAkad = [
-  { value: "Akad", text: "Akad" },
+  { value: "Akad Nikah", text: "Akad Nikah" },
+  { value: "Resepsi", text: "Resepsi" },
   { value: "Pemberkatan", text: "Pemberkatan" },
   { value: "Lainnya", text: "Lainnya" },
 ];
 export const nameAcaraResepsi = [
+  { value: "Akad Nikah", text: "Akad Nikah" },
   { value: "Resepsi", text: "Resepsi" },
-  { value: "Walimatul Ursy", text: "Walimatul Ursy" },
+  { value: "Pemberkatan", text: "Pemberkatan" },
   { value: "Lainnya", text: "Lainnya" },
 ];
 export const namaPertama = [
@@ -152,6 +158,7 @@ export const filterPackages = [
   { value: "Filter Wedding AC", text: "Filter Wedding AC" },
   { value: "Filter Wedding AD", text: "Filter Wedding AD" },
   { value: "Filter Wedding AE", text: "Filter Wedding AE" },
+  { value: "Filter Wedding AF", text: "Filter Wedding AF" },
   { value: "Filter Wedding 01", text: "Filter Wedding 01" },
   { value: "Filter Wedding 02", text: "Filter Wedding 02" },
   { value: "Filter Wedding Jawa", text: "Filter Wedding Jawa" },

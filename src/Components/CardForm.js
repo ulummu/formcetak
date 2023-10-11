@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import logo from "../logo.png";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  FloatingLabel,
+  Form,
+  Row,
+} from "react-bootstrap";
 import "./CardForm.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import SelectFormComponent from "./forms/SelectFormComponent";
@@ -9,7 +17,8 @@ import {
   checkSpecialChar,
   handleFormInput,
   handleFormSubmit,
-  jumlahFunc,
+  jumlahChange,
+  jumlahSubmit,
   ubahFunction,
 } from "../helpers/FormHelper";
 import {
@@ -19,6 +28,7 @@ import {
   namaPertama,
   pilihanBundling,
   jumlahChosen,
+  initialJumlah,
 } from "../constans/FormConstans";
 import DataMempelai from "../Points/DataMempelai";
 import DataAcara from "../Points/DataAcara";
@@ -30,11 +40,8 @@ import DataBundling from "../Points/DataBundling";
 export default function CardForm(props) {
   const [validated, setValidated] = useState(false);
   const [values, setValues] = useState(initialFormValues);
-  const [kata, setKata] = useState("");
+  const [valuesJum, setValuesJum] = useState(initialJumlah);
   const [visible, setVisible] = useState(false);
-  const [visibleButtonJumlah, setVisibleButtonJumlah] = useState(true);
-  const [visibleUnder, setVisibleUnder] = useState(false);
-  const [visibleHigher, setVisibleHigher] = useState(false);
   const [visibleWebsite, setVisibleWebsite] = useState(false);
   const [visibleVideo, setVisibleVideo] = useState(false);
   const [visibleWebnVid, setVisibleWebnVid] = useState(false);
@@ -45,32 +52,23 @@ export default function CardForm(props) {
   const [dataAkad, setDataAkad] = useState("");
   const [lBarcode, setLBarcode] = useState("");
   const [noCatin, setNoCatin] = useState("");
+  const [opsiJumlah, setOpsiJumlah] = useState("");
+  const [data, setData] = useState("");
   const [dataResepsi, setDataResepsi] = useState("");
   const [dataBundling, setDataBundling] = useState(0);
   const [temp, setTemp] = useState("");
   const [filter, setFilter] = useState("");
-  // console.log(visibleAkad);
-  // const capitalize = (s) =>
-  //   s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
-  // if (/[$%&*?#@^]/.test(e.key)) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  // }
-  const jumFun = () =>
-    jumlahFunc(
-      values,
-      setKata,
-      setVisibleUnder,
-      setVisibleHigher,
-      setVisibleButtonJumlah
-    );
-  const ubahFunc = () =>
-    ubahFunction(setVisibleUnder, setVisibleHigher, setVisibleButtonJumlah);
+
+  const jumChange = (event) =>
+    jumlahChange(event, values, valuesJum, setValues, setValuesJum);
+  const jumSubmit = (event) =>
+    jumlahSubmit(event, values, valuesJum, setValues, setValuesJum);
+  const ubahFunc = () => ubahFunction(valuesJum, setValuesJum);
   const handleInputChange = (event) =>
     handleFormInput(
       event,
       values,
-      kata,
+      data,
       dataAkad,
       temp,
       noCatin,
@@ -85,15 +83,14 @@ export default function CardForm(props) {
       visibleAkad,
       visibleResepsi,
       visibleFilter,
-      visibleUnder,
-      visibleHigher,
-      visibleButtonJumlah,
       setVisibleWebsite,
       setVisibleVideo,
       setVisibleWebnVid,
       setLBarcode,
       setFilter,
+      setOpsiJumlah,
       setValues,
+      setData,
       setTemp,
       setVisible,
       setNoCatin,
@@ -103,16 +100,13 @@ export default function CardForm(props) {
       setVisibleAkad,
       setVisibleResepsi,
       setDataAkad,
-      setDataResepsi,
-      setVisibleUnder,
-      setVisibleHigher,
-      setVisibleButtonJumlah
+      setDataResepsi
     );
   const handleSubmit = (event) =>
     handleFormSubmit(
       event,
       values,
-      dataAkad,
+      data,
       temp,
       noCatin,
       lBarcode,
@@ -143,17 +137,44 @@ export default function CardForm(props) {
                 {/* Form Jumlah */}
                 <Form.Group className="mb-3">
                   <SelectFormComponent
-                    disable={!visibleButtonJumlah}
+                    disable={!valuesJum.visibleButtonJumlah}
                     validasi={true}
-                    name="jumlah"
+                    name="opsiJumlah"
                     label="Silakan Masukan Jumlah"
-                    defaultValue={values.jumlah}
+                    defaultValue={opsiJumlah}
                     optionsTitle="Silakan Pilih Jumlah"
                     options={jumlahChosen}
-                    errorText="Jumlah Belum Dipilih"
-                    onChange={handleInputChange}
+                    errorText="Jumlah Belum dipilih"
+                    onChange={jumChange}
                   />
-                  {!visibleButtonJumlah && (
+                  {valuesJum.visibleJumlah && (
+                    <>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Masukkan Jumlah"
+                      >
+                        <Form.Control
+                          disabled={!valuesJum.visibleButtonJumlah}
+                          name="jumlah"
+                          value={values.jumlah}
+                          onChange={jumChange}
+                          type="number"
+                          placeholder="Masukkan Jumlah"
+                        />
+                      </FloatingLabel>
+                      <Form.Label
+                        className="ms-1 mb-1"
+                        style={{
+                          fontSize: "14px",
+                          color: "red",
+                          display: `${valuesJum.display}`,
+                        }}
+                      >
+                        {valuesJum.errorText}
+                      </Form.Label>
+                    </>
+                  )}
+                  {!valuesJum.visibleButtonJumlah && (
                     <Form.Label
                       onClick={ubahFunc}
                       className="float-end mt-1 mb-1 primary"
@@ -162,13 +183,13 @@ export default function CardForm(props) {
                       ubah
                     </Form.Label>
                   )}
-                  {visibleButtonJumlah && (
-                    <Button onClick={jumFun} className="float-end mt-2 mb-1">
+                  {valuesJum.visibleButtonJumlah && (
+                    <Button onClick={jumSubmit} className="float-end mt-2 mb-1">
                       Input
                     </Button>
                   )}
                 </Form.Group>
-                {visibleUnder && (
+                {valuesJum.visibleUnder && (
                   <>
                     {/* Form model */}
                     <SelectFormComponent
@@ -186,7 +207,7 @@ export default function CardForm(props) {
                     <SelectFormComponent
                       validasi={true}
                       name="desain"
-                      label="Desain Undangan Cetak"
+                      label="Desain/Tema Undangan Cetak"
                       defaultValue={values.desain}
                       optionsTitle="Silakan Pilih Desain"
                       options={designs}
@@ -253,9 +274,10 @@ export default function CardForm(props) {
                     <SelectFormComponent
                       validasi={true}
                       name="bundling"
-                      label={kata}
+                      classEffect="fw-bold"
+                      label={valuesJum.kata}
                       defaultValue={values.bundling}
-                      optionsTitle="Silakan Pilih Bundling"
+                      optionsTitle="Silakan Pilih"
                       options={pilihanBundling}
                       errorText="Bundling Belum Dipilih"
                       onChange={handleInputChange}
@@ -352,7 +374,7 @@ export default function CardForm(props) {
                     </Button>
                   </>
                 )}
-                {visibleHigher && (
+                {valuesJum.visibleHigher && (
                   <>
                     {/* Form model */}
                     <SelectFormComponent
@@ -436,8 +458,9 @@ export default function CardForm(props) {
                     {/* Form Bundling */}
                     <SelectFormComponent
                       validasi={true}
+                      classEffect="fw-bold"
                       name="bundling"
-                      label={kata}
+                      label={valuesJum.kata}
                       defaultValue={values.bundling}
                       optionsTitle="Silakan Pilih Bundling"
                       options={pilihanBundling}

@@ -88,7 +88,7 @@ const DataVideo = ({ temaVideo, paketVideo, pakaiFilter, visiblFilter, filterig,
 
         <SelectFormComponent
         validasi={true} 
-        label="Tambahkan Barcode"
+        label="Tambahkan Barcode Lokasi"
         name="barcode"
         value={barcode}
         optionsTitle="Silakan Pilih"
@@ -102,9 +102,9 @@ const DataVideo = ({ temaVideo, paketVideo, pakaiFilter, visiblFilter, filterig,
             <TextInputFormComponent 
             validasi={true}
             classEffect="formTambah mt-3"
-            label="Link Barcode"
+            label="Link Google Maps"
             name="linkBarcode"
-            placeholder="Link Barcode"
+            placeholder="Link Google Maps"
             value={linkBarcode}
             errorText="Link Belum Diisi"
             onChange={handleInputChange}
