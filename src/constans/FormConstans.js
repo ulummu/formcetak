@@ -120,7 +120,7 @@ export const pilihanBundling = [
   { value: "Video/Jpeg", text: "Video/Jpeg" },
   {
     value: "Website dan Video/Jpeg",
-    text: `Website dan Video/Jpeg<span>(dengan tambahan biaya)</span>`,
+    text: "Website dan Video/Jpeg",
   },
 ];
 export const nameAcaraAkad = [

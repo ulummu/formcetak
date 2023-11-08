@@ -20,13 +20,13 @@ export const jumlahSubmit = (
   setValues,
   setValuesJum
 ) => {
-  if (values.jumlah <= 150 && valuesJum.jumlahLain === true) {
+  if (values.jumlah <= 149 && valuesJum.jumlahLain === true) {
     setValuesJum({
       ...valuesJum,
       errorText: "Jumlah kurang dari 150",
       display: "block",
     });
-  } else if (values.jumlah > 150 && valuesJum.jumlahLain === true) {
+  } else if (values.jumlah > 149 && valuesJum.jumlahLain === true) {
     setValuesJum({
       ...valuesJum,
       display: "none",
@@ -285,12 +285,12 @@ ${filter}\n
 14. Live Streaming : ${values.live}\n
 15. Wedding Gift
 -Amplop Digital 1
--Nomor Rekening 1 : ${values.nomorRek}
 -Nama Bank 1 : ${values.namaBank}
+-Nomor Rekening 1 : ${values.nomorRek}
 -Atas Nama 1 : ${values.atasNama}\n
 -Amplop Digital 2
--Nomor Rekening 2 : ${values.nomorRek2}
 -Nama Bank 2 : ${values.namaBank2}
+-Nomor Rekening 2 : ${values.nomorRek2}
 -Atas Nama 2 : ${values.atasNama2}\n
 -Kirim Hadiah
 -Alamat : ${values.alamat}
@@ -388,12 +388,12 @@ ${lBarcode}\n
 18. Live Streaming : ${values.live}\n
 15. Wedding Gift
 -Amplop Digital 1
--Nomor Rekening 1 : ${values.nomorRek}
 -Nama Bank 1 : ${values.namaBank}
+-Nomor Rekening 1 : ${values.nomorRek}
 -Atas Nama 1 : ${values.atasNama}\n
 -Amplop Digital 2
--Nomor Rekening 2 : ${values.nomorRek2}
 -Nama Bank 2 : ${values.namaBank2}
+-Nomor Rekening 2 : ${values.nomorRek2}
 -Atas Nama 2 : ${values.atasNama2}\n
 -Kirim Hadiah
 -Alamat : ${values.alamat}
