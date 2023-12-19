@@ -41,7 +41,6 @@ const DataAcara = ({ namaAcaraAkad, lainnyaAkad, visiblAkad, hariAkad, akad, puk
                       valueTambah={lainnyaAkad}
                       errorTextTambah="Nama Acara Belum Diisi"
                       onChangeTambah={handleInputChange}
-                    
                     />
 
                     {/* Hari dan Tanggal */}

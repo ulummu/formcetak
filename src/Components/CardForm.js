@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import logo from "../logo.png";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  FloatingLabel,
-  Form,
-  Row,
-} from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import "./CardForm.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import SelectFormComponent from "./forms/SelectFormComponent";
@@ -17,18 +9,15 @@ import {
   checkSpecialChar,
   handleFormInput,
   handleFormSubmit,
-  jumlahChange,
   jumlahSubmit,
   ubahFunction,
 } from "../helpers/FormHelper";
 import {
   initialFormValues,
-  modelThemes,
-  designs,
   namaPertama,
   pilihanBundling,
-  jumlahChosen,
   initialJumlah,
+  penandaPilih,
 } from "../constans/FormConstans";
 import DataMempelai from "../Points/DataMempelai";
 import DataAcara from "../Points/DataAcara";
@@ -36,15 +25,15 @@ import DataAlamatKirim from "../Points/DataAlamatKirim";
 import DataWebsite from "../Points/DataWebsite";
 import DataVideo from "../Points/DataVideo";
 import DataBundling from "../Points/DataBundling";
+import TextInput from "./forms/TextInput";
+import PenandaSelect from "./forms/PenandaSelect";
 
 export default function CardForm(props) {
   const [validated, setValidated] = useState(false);
+  const [validatedJumlah, setValidatedJumlah] = useState(false);
   const [values, setValues] = useState(initialFormValues);
   const [valuesJum, setValuesJum] = useState(initialJumlah);
   const [visible, setVisible] = useState(false);
-  const [visibleWebsite, setVisibleWebsite] = useState(false);
-  const [visibleVideo, setVisibleVideo] = useState(false);
-  const [visibleWebnVid, setVisibleWebnVid] = useState(false);
   const [visibleBarcode, setVisibleBarcode] = useState(false);
   const [visibleAkad, setVisibleAkad] = useState(false);
   const [visibleResepsi, setVisibleResepsi] = useState(false);
@@ -52,17 +41,20 @@ export default function CardForm(props) {
   const [dataAkad, setDataAkad] = useState("");
   const [lBarcode, setLBarcode] = useState("");
   const [noCatin, setNoCatin] = useState("");
-  const [opsiJumlah, setOpsiJumlah] = useState("");
   const [data, setData] = useState("");
   const [dataResepsi, setDataResepsi] = useState("");
-  const [dataBundling, setDataBundling] = useState(0);
   const [temp, setTemp] = useState("");
   const [filter, setFilter] = useState("");
 
-  const jumChange = (event) =>
-    jumlahChange(event, values, valuesJum, setValues, setValuesJum);
   const jumSubmit = (event) =>
-    jumlahSubmit(event, values, valuesJum, setValues, setValuesJum);
+    jumlahSubmit(
+      event,
+      values,
+      valuesJum,
+      setValues,
+      setValuesJum,
+      setValidatedJumlah
+    );
   const ubahFunc = () => ubahFunction(valuesJum, setValuesJum);
   const handleInputChange = (event) =>
     handleFormInput(
@@ -75,20 +67,12 @@ export default function CardForm(props) {
       lBarcode,
       dataResepsi,
       filter,
-      dataBundling,
       visible,
-      visibleWebsite,
-      visibleVideo,
-      visibleWebnVid,
       visibleAkad,
       visibleResepsi,
       visibleFilter,
-      setVisibleWebsite,
-      setVisibleVideo,
-      setVisibleWebnVid,
       setLBarcode,
       setFilter,
-      setOpsiJumlah,
       setValues,
       setData,
       setTemp,
@@ -96,7 +80,6 @@ export default function CardForm(props) {
       setNoCatin,
       setVisibleFilter,
       setVisibleBarcode,
-      setDataBundling,
       setVisibleAkad,
       setVisibleResepsi,
       setDataAkad,
@@ -112,7 +95,6 @@ export default function CardForm(props) {
       lBarcode,
       dataResepsi,
       filter,
-      dataBundling,
       setValidated
     );
   return (
@@ -131,49 +113,45 @@ export default function CardForm(props) {
               <Form
                 className="form"
                 noValidate
-                validated={validated}
-                onSubmit={handleSubmit}
+                validated={validatedJumlah}
+                onSubmit={jumSubmit}
               >
+                {/* Form model */}
+                <TextInput
+                  validasi={true}
+                  name="model"
+                  label="Model Undangan Cetak"
+                  value={values.model}
+                  type="text"
+                  placeholder="Silakan Diisi"
+                  errorText="Model Belum Diisi"
+                  onChange={handleInputChange}
+                />
+
+                {/* Form Desain */}
+                <TextInput
+                  validasi={true}
+                  name="desain"
+                  label="Desain/Tema Undangan Cetak"
+                  value={values.desain}
+                  type="text"
+                  placeholder="Silakan Diisi"
+                  errorText="Desain Belum Diisi"
+                  onChange={handleInputChange}
+                />
+                <TextInput
+                  validasi={true}
+                  label="Jumlah Undangan"
+                  disable={!valuesJum.visibleButtonJumlah}
+                  name="jumlah"
+                  value={values.jumlah}
+                  onChange={handleInputChange}
+                  type="number"
+                  errorText="Jumlah Belum Diisi"
+                  placeholder="Masukkan Jumlah"
+                />
                 {/* Form Jumlah */}
                 <Form.Group className="mb-3">
-                  <SelectFormComponent
-                    disable={!valuesJum.visibleButtonJumlah}
-                    validasi={true}
-                    name="opsiJumlah"
-                    label="Silakan Masukan Jumlah"
-                    defaultValue={opsiJumlah}
-                    optionsTitle="Silakan Pilih Jumlah"
-                    options={jumlahChosen}
-                    errorText="Jumlah Belum dipilih"
-                    onChange={jumChange}
-                  />
-                  {valuesJum.visibleJumlah && (
-                    <>
-                      <FloatingLabel
-                        controlId="floatingInput"
-                        label="Masukkan Jumlah"
-                      >
-                        <Form.Control
-                          disabled={!valuesJum.visibleButtonJumlah}
-                          name="jumlah"
-                          value={values.jumlah}
-                          onChange={jumChange}
-                          type="number"
-                          placeholder="Masukkan Jumlah"
-                        />
-                      </FloatingLabel>
-                      <Form.Label
-                        className="ms-1 mb-1"
-                        style={{
-                          fontSize: "14px",
-                          color: "red",
-                          display: `${valuesJum.display}`,
-                        }}
-                      >
-                        {valuesJum.errorText}
-                      </Form.Label>
-                    </>
-                  )}
                   {!valuesJum.visibleButtonJumlah && (
                     <Form.Label
                       onClick={ubahFunc}
@@ -184,36 +162,44 @@ export default function CardForm(props) {
                     </Form.Label>
                   )}
                   {valuesJum.visibleButtonJumlah && (
-                    <Button onClick={jumSubmit} className="float-end mt-2 mb-1">
+                    <Button type="submit" className="float-end mt-2 mb-1">
                       Input
                     </Button>
                   )}
                 </Form.Group>
+              </Form>
+              <Form
+                className="form"
+                noValidate
+                validated={validated}
+                onSubmit={handleSubmit}
+              >
                 {valuesJum.visibleUnder && (
                   <>
-                    {/* Form model */}
-                    <SelectFormComponent
+                    {/* Penanda Lokasi */}
+                    <PenandaSelect
+                      classEffect="labelForm"
                       validasi={true}
-                      name="model"
-                      label="Model Undangan Cetak"
-                      defaultValue={values.model}
-                      optionsTitle="Silakan Pilih Model"
-                      options={modelThemes}
-                      errorText="Model Belum Dipilih"
+                      name="penandaLokasi"
+                      label="Penanda Lokasi"
+                      value={values.penandaLokasi}
+                      optionsTitle="Silakan Pilih Penanda"
+                      options={penandaPilih}
+                      errorText="Penanda Belum Dipilih"
                       onChange={handleInputChange}
+                      visible={values.visibleQR}
+                      namaTambah="qrCode"
+                      labelTambah="Masukan Link Google Maps"
+                      placeholderTambah="Masukan Link Google Maps"
+                      valueTambah={values.qrCode}
+                      errorTextTambah="QR Code Belum Diisi"
                     />
+                    {values.denahNote && (
+                      <Form.Label>
+                        Kirimkan Sketsa Denah kepada Admin
+                      </Form.Label>
+                    )}
 
-                    {/* Form Desain */}
-                    <SelectFormComponent
-                      validasi={true}
-                      name="desain"
-                      label="Desain/Tema Undangan Cetak"
-                      defaultValue={values.desain}
-                      optionsTitle="Silakan Pilih Desain"
-                      options={designs}
-                      errorText="Desain Belum Dipilih"
-                      onChange={handleInputChange}
-                    />
                     {/* Form Nama didahulukan */}
                     <SelectFormComponent
                       validasi={true}
@@ -282,7 +268,7 @@ export default function CardForm(props) {
                       errorText="Bundling Belum Dipilih"
                       onChange={handleInputChange}
                     />
-                    {visibleWebsite && (
+                    {values.visibleWebsite && (
                       <DataWebsite
                         temaWebsite={values.temaWebsite}
                         bahasa={values.bahasa}
@@ -311,7 +297,7 @@ export default function CardForm(props) {
                         handleInputChange={handleInputChange}
                       />
                     )}
-                    {visibleVideo && (
+                    {values.visibleVideo && (
                       <DataVideo
                         temaVideo={values.temaVideo}
                         paketVideo={values.paketVideo}
@@ -328,7 +314,7 @@ export default function CardForm(props) {
                         handleInputChange={handleInputChange}
                       />
                     )}
-                    {visibleWebnVid && (
+                    {values.visibleWebnVid && (
                       <DataBundling
                         temaWebsite={values.temaWebsite}
                         bahasa={values.bahasa}
@@ -376,29 +362,30 @@ export default function CardForm(props) {
                 )}
                 {valuesJum.visibleHigher && (
                   <>
-                    {/* Form model */}
-                    <SelectFormComponent
+                    {/* Penanda Lokasi */}
+                    <PenandaSelect
+                      classEffect="labelForm"
                       validasi={true}
-                      name="model"
-                      label="Model Undangan Cetak"
-                      defaultValue={values.model}
-                      optionsTitle="Silakan Pilih Model"
-                      options={modelThemes}
-                      errorText="Model Belum Dipilih"
+                      name="penandaLokasi"
+                      label="Penanda Lokasi"
+                      value={values.penandaLokasi}
+                      optionsTitle="Silakan Pilih Penanda"
+                      options={penandaPilih}
+                      errorText="Penanda Belum Dipilih"
                       onChange={handleInputChange}
+                      visible={values.visibleQR}
+                      namaTambah="qrCode"
+                      labelTambah="Masukan Link Google Maps"
+                      placeholderTambah="Masukan Link Google Maps"
+                      valueTambah={values.qrCode}
+                      errorTextTambah="QR Code Belum Diisi"
+                      onChangeTambah={handleInputChange}
                     />
-
-                    {/* Form Desain */}
-                    <SelectFormComponent
-                      validasi={true}
-                      name="desain"
-                      label="Desain Undangan Cetak"
-                      defaultValue={values.desain}
-                      optionsTitle="Silakan Pilih Desain"
-                      options={designs}
-                      errorText="Desain Belum Dipilih"
-                      onChange={handleInputChange}
-                    />
+                    {values.denahNote && (
+                      <Form.Label>
+                        Kirimkan Sketsa Denah kepada Admin
+                      </Form.Label>
+                    )}
                     {/* Form Nama didahulukan */}
                     <SelectFormComponent
                       validasi={true}
@@ -467,7 +454,7 @@ export default function CardForm(props) {
                       errorText="Bundling Belum Dipilih"
                       onChange={handleInputChange}
                     />
-                    {visibleWebsite && (
+                    {values.visibleWebsite && (
                       <DataWebsite
                         temaWebsite={values.temaWebsite}
                         bahasa={values.bahasa}
@@ -496,7 +483,7 @@ export default function CardForm(props) {
                         handleInputChange={handleInputChange}
                       />
                     )}
-                    {visibleVideo && (
+                    {values.visibleVideo && (
                       <DataVideo
                         temaVideo={values.temaVideo}
                         paketVideo={values.paketVideo}
@@ -513,7 +500,7 @@ export default function CardForm(props) {
                         handleInputChange={handleInputChange}
                       />
                     )}
-                    {visibleWebnVid && (
+                    {values.visibleWebnVid && (
                       <DataBundling
                         temaWebsite={values.temaWebsite}
                         bahasa={values.bahasa}

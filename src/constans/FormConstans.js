@@ -45,6 +45,10 @@ export const initialFormValues = {
   mapsResepsi: "",
   musik: "",
   musik2: "",
+  visibleWebsite: false,
+  visibleVideo: false,
+  visibleWebnVid: false,
+  dataBundling: 0,
   loveStory: "",
   live: "",
   nomorRek: "",
@@ -71,12 +75,13 @@ export const initialFormValues = {
   pakaiFilter: "",
   filterig: "",
   frame: "",
+  penandaLokasi: "",
+  qrCode: "",
+  visibleQR: false,
+  denahNote: false,
 };
 export const initialJumlah = {
-  errorText: "",
-  display: "none",
   jumlah: "",
-  jumlahLain: false,
   visibleJumlah: false,
   visibleUnder: false,
   visibleHigher: false,
@@ -90,10 +95,11 @@ export const jumlahChosen = [
   { value: "100", text: "100" },
   { value: "Jumlah lain", text: "Jumlah lain" },
 ];
-export const modelThemes = [
-  { value: "Model A", text: "Model A" },
-  { value: "Model B", text: "Model B" },
-  { value: "Model D", text: "Model D" },
+export const penandaPilih = [
+  { value: "QR Code", text: "QR Code" },
+  { value: "Denah", text: "Denah" },
+  { value: "QR Code dan Denah", text: "QR Code dan Denah" },
+  { value: "Tanpa Penanda", text: "Tanpa Penanda" },
 ];
 
 export const designs = [

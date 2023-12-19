@@ -46,7 +46,7 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
         name="paketVideo"
         label="Paket Undangan Video/Jpeg"
         value={paketVideo}
-        optionsTitle="Silakan Pilih Paket"
+        optionsTitle="Sesuai dengan paket yang dipilih"
         options={videoPackages}
         errorText="Paket Belum Dipilih"
         onChange={handleInputChange}
@@ -148,38 +148,38 @@ const DataBundling = ({ temaWebsite, bahasa, temaVideo, paketVideo, pakaiFilter,
     onChange={handleInputChange}
     />
     <Accordion flush>
-        <Accordion.Item eventKey="0">
+      <Accordion.Item eventKey="0">
         <Accordion.Header>
             <i className="bi bi-music-note-beamed me-2"></i>
             <div className="labelForm">Musik</div>
         </Accordion.Header>
         <Accordion.Body>
-            <TextInputFormComponent
-            validasi={true} 
-            classEffect="mb-2"
-            label="Backsound Video/Jpeg"
+        <Form.Label>Backsound Video/Jpeg</Form.Label>
+          <Form.Control
             name="musik2"
             value={musik2}
-            placeholder="Backsound Video/Jpeg"
-            errorText="Musik Belum Diisi"
             onChange={handleInputChange}
+            required
+            type="text"
+            placeholder= "Masukkan Link Youtube dan Detik Lagu Dimulai"
+          />
+          <Form.Control.Feedback type="invalid">Belum diisi</Form.Control.Feedback>
+          <Form.Label>Backsound Website</Form.Label>
+            <Form.Control
+              name="musik"
+              value={musik}
+              onChange={handleInputChange}
+              required
+              type="text"
+              placeholder= "Masukkan Link Youtube"
             />
-            <TextInputFormComponent
-            validasi={true} 
-            label="Backsound Website"
-            name="musik"
-            value={musik}
-            placeholder="Backsound Website"
-            errorText="Musik Belum Diisi"
-            onChange={handleInputChange}
-            />
-
+          <Form.Control.Feedback type="invalid">Belum diisi</Form.Control.Feedback>
             <FormTutorial 
             label="Tutorial Salin Backsound"
             linkTutorial="https://www.youtube.com/watch?v=DmWVqg3mfps"
             />
         </Accordion.Body>
-        </Accordion.Item>
+      </Accordion.Item>
     </Accordion>
     
     <DataWeddingGift 
