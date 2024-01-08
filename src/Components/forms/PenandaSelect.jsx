@@ -30,7 +30,8 @@ const PenandaSelect = ({
     return (
         <>
       <Form.Group className="mb-2">
-        <Form.Label className={classEffect}>{label}<br />Ketentuan bisa dilihat{" "}
+        <Form.Label className={classEffect}>{label}</Form.Label>
+        <Form.Label className="labelPenanda">Ketentuan bisa dilihat&nbsp;
     <a
       className="tutor"
       href={url}
@@ -38,7 +39,7 @@ const PenandaSelect = ({
       target="_blank"
       rel="noopener noreferrer"
     >
-      disini
+       disini
     </a></Form.Label>
         <Form.Select name={name} value={value} onChange={onChange} required={validasi}>
           <option value="" hidden>

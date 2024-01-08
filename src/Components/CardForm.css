@@ -86,3 +86,7 @@ height:45px;
 .ujilogo{
     width: 40%;
 }
+.labelPenanda{
+    display: flex;
+    font-size: smaller;
+}

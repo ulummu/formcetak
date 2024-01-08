@@ -16,7 +16,7 @@ const TextInput = ({
   onChange,
 }) => {
   return (
-    <Form.Group>
+    <Form.Group className="mb-2">
         <Form.Label>{label}</Form.Label>
       <Form.Control
         name={name}

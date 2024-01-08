@@ -22,9 +22,21 @@ export const jumlahSubmit = (
   setValidatedJumlah
 ) => {
   const { name, value } = event.target;
-  if (values.jumlah <= 101 && values.jumlah !== "") {
+  if (values.jumlah === "") {
+    setValuesJum({ ...valuesJum, errText: "Jumlah Belum Diisi" });
+  }
+  if (values.jumlah <= 20 && values.jumlah !== "") {
     setValuesJum({
       ...valuesJum,
+      verif: true,
+      errText: "Jumlah kurang dari 20",
+    });
+  }
+  if (values.jumlah <= 101 && values.jumlah !== "" && values.jumlah > 20) {
+    setValuesJum({
+      ...valuesJum,
+      verif: false,
+      errText: "",
       visibleUnder: false,
       visibleHigher: true,
       visibleButtonJumlah: false,
@@ -33,6 +45,8 @@ export const jumlahSubmit = (
   } else if (values.jumlah > 101) {
     setValuesJum({
       ...valuesJum,
+      verif: false,
+      errText: "",
       visibleUnder: true,
       visibleHigher: false,
       visibleButtonJumlah: false,
@@ -136,10 +150,7 @@ export const handleFormInput = (
     newValues.visibleQR = false;
     newValues.denahNote = true;
     setValues(newValues);
-  } else if (
-    event.target.name === "penandaLokasi" &&
-    event.target.value === "Denah"
-  ) {
+  } else {
     let newValues = values;
     newValues.visibleQR = false;
     newValues.denahNote = false;

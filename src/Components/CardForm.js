@@ -139,8 +139,26 @@ export default function CardForm(props) {
                   errorText="Desain Belum Diisi"
                   onChange={handleInputChange}
                 />
-                <TextInput
+                <Form.Group className="mb-2">
+                  <Form.Label>Jumlah Undangan</Form.Label>
+                  <Form.Control
+                    name="jumlah"
+                    disabled={!valuesJum.visibleButtonJumlah}
+                    value={values.jumlah}
+                    onChange={handleInputChange}
+                    required
+                    type="number"
+                    placeholder="Masukkan Jumlah"
+                    isInvalid={valuesJum.verif}
+                    isValid={!valuesJum.verif}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {valuesJum.errText}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                {/* <TextInput
                   validasi={true}
+                  verif={valuesJum.verif}
                   label="Jumlah Undangan"
                   disable={!valuesJum.visibleButtonJumlah}
                   name="jumlah"
@@ -149,7 +167,7 @@ export default function CardForm(props) {
                   type="number"
                   errorText="Jumlah Belum Diisi"
                   placeholder="Masukkan Jumlah"
-                />
+                /> */}
                 {/* Form Jumlah */}
                 <Form.Group className="mb-3">
                   {!valuesJum.visibleButtonJumlah && (
@@ -178,7 +196,7 @@ export default function CardForm(props) {
                   <>
                     {/* Penanda Lokasi */}
                     <PenandaSelect
-                      classEffect="labelForm"
+                      classEffect="labelForm mb-0"
                       validasi={true}
                       name="penandaLokasi"
                       label="Penanda Lokasi"
