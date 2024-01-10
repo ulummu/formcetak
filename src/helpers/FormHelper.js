@@ -1,3 +1,5 @@
+import { Formik } from "formik";
+
 export const capitalFirstWord = (event) => {
   var words = event.split(" ");
   for (var i = 0; i < words.length; i++) {
@@ -98,6 +100,7 @@ export const handleFormInput = (
   setDataResepsi
 ) => {
   const { name, value } = event.target;
+
   if (event.target.name === "bundling" && event.target.value === "Website") {
     let newValues = values;
     newValues.visibleWebsite = true;

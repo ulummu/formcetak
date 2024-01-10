@@ -27,6 +27,8 @@ import DataVideo from "../Points/DataVideo";
 import DataBundling from "../Points/DataBundling";
 import TextInput from "./forms/TextInput";
 import PenandaSelect from "./forms/PenandaSelect";
+import * as formik from "formik";
+import * as yup from "yup";
 
 export default function CardForm(props) {
   const [validated, setValidated] = useState(false);
@@ -46,6 +48,17 @@ export default function CardForm(props) {
   const [temp, setTemp] = useState("");
   const [filter, setFilter] = useState("");
 
+  const { Formik } = formik;
+
+  const schema = yup.object().shape({
+    model: yup.string().required("Model belum diisi"),
+    desain: yup.string().required("desain belum diisi"),
+    jumlah: yup
+      .number()
+      .required("Jumlah belum diisi")
+      .min(20, "Kurang dari 20"),
+  });
+
   const jumSubmit = (event) =>
     jumlahSubmit(
       event,
@@ -56,6 +69,10 @@ export default function CardForm(props) {
       setValidatedJumlah
     );
   const ubahFunc = () => ubahFunction(valuesJum, setValuesJum);
+  // const handleForm = (event) => {
+  //   const { target } = event;
+  //   formik.setFieldValue(target.name, target.value);
+  // };
   const handleInputChange = (event) =>
     handleFormInput(
       event,
@@ -110,53 +127,57 @@ export default function CardForm(props) {
               <Form.Label className="judul">
                 Silakan Isi Data Secara Lengkap
               </Form.Label>
-              <Form
-                className="form"
-                noValidate
-                validated={validatedJumlah}
+              <Formik
+                validationSchema={schema}
                 onSubmit={jumSubmit}
+                initialValues={{
+                  model: "",
+                  desain: "",
+                  jumlah: "",
+                }}
               >
-                {/* Form model */}
-                <TextInput
-                  validasi={true}
-                  name="model"
-                  label="Model Undangan Cetak"
-                  value={values.model}
-                  type="text"
-                  placeholder="Silakan Diisi"
-                  errorText="Model Belum Diisi"
-                  onChange={handleInputChange}
-                />
+                {({ handleSubmit, handleChange, values, touched, errors }) => (
+                  <Form className="form" noValidate onSubmit={handleSubmit}>
+                    {/* Form model */}
+                    <TextInput
+                      isInvalid={!!errors.model}
+                      name="model"
+                      label="Model Undangan Cetak"
+                      value={values.model}
+                      type="text"
+                      placeholder="Silakan Diisi"
+                      errorText={errors.model}
+                      onChange={handleChange}
+                    />
 
-                {/* Form Desain */}
-                <TextInput
-                  validasi={true}
-                  name="desain"
-                  label="Desain/Tema Undangan Cetak"
-                  value={values.desain}
-                  type="text"
-                  placeholder="Silakan Diisi"
-                  errorText="Desain Belum Diisi"
-                  onChange={handleInputChange}
-                />
-                <Form.Group className="mb-2">
-                  <Form.Label>Jumlah Undangan</Form.Label>
-                  <Form.Control
-                    name="jumlah"
-                    disabled={!valuesJum.visibleButtonJumlah}
-                    value={values.jumlah}
-                    onChange={handleInputChange}
-                    required
-                    type="number"
-                    placeholder="Masukkan Jumlah"
-                    isInvalid={valuesJum.verif}
-                    isValid={!valuesJum.verif}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {valuesJum.errText}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                {/* <TextInput
+                    {/* Form Desain */}
+                    <TextInput
+                      isInvalid={!!errors.desain}
+                      name="desain"
+                      label="Desain/Tema Undangan Cetak"
+                      value={values.desain}
+                      type="text"
+                      placeholder="Silakan Diisi"
+                      errorText={errors.desain}
+                      onChange={handleChange}
+                    />
+                    <Form.Group className="mb-2">
+                      <Form.Label>Jumlah Undangan</Form.Label>
+                      <Form.Control
+                        name="jumlah"
+                        disabled={!valuesJum.visibleButtonJumlah}
+                        value={values.jumlah}
+                        onChange={handleChange}
+                        required
+                        type="number"
+                        placeholder="Masukkan Jumlah"
+                        isInvalid={!!errors.jumlah}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.jumlah}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    {/* <TextInput
                   validasi={true}
                   verif={valuesJum.verif}
                   label="Jumlah Undangan"
@@ -168,24 +189,26 @@ export default function CardForm(props) {
                   errorText="Jumlah Belum Diisi"
                   placeholder="Masukkan Jumlah"
                 /> */}
-                {/* Form Jumlah */}
-                <Form.Group className="mb-3">
-                  {!valuesJum.visibleButtonJumlah && (
-                    <Form.Label
-                      onClick={ubahFunc}
-                      className="float-end mt-1 mb-1 primary"
-                      style={{ color: "#0D6EFD" }}
-                    >
-                      ubah
-                    </Form.Label>
-                  )}
-                  {valuesJum.visibleButtonJumlah && (
-                    <Button type="submit" className="float-end mt-2 mb-1">
-                      Input
-                    </Button>
-                  )}
-                </Form.Group>
-              </Form>
+                    {/* Form Jumlah */}
+                    <Form.Group className="mb-3">
+                      {!valuesJum.visibleButtonJumlah && (
+                        <Form.Label
+                          onClick={ubahFunc}
+                          className="float-end mt-1 mb-1 primary"
+                          style={{ color: "#0D6EFD" }}
+                        >
+                          ubah
+                        </Form.Label>
+                      )}
+                      {valuesJum.visibleButtonJumlah && (
+                        <Button type="submit" className="float-end mt-2 mb-1">
+                          Input
+                        </Button>
+                      )}
+                    </Form.Group>
+                  </Form>
+                )}
+              </Formik>
               <Form
                 className="form"
                 noValidate
