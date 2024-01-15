@@ -28,11 +28,13 @@ import DataBundling from "../Points/DataBundling";
 import TextInput from "./forms/TextInput";
 import PenandaSelect from "./forms/PenandaSelect";
 import * as formik from "formik";
+// import { useFormik } from "formik";
 import * as yup from "yup";
 
 export default function CardForm(props) {
   const [validated, setValidated] = useState(false);
   const [validatedJumlah, setValidatedJumlah] = useState(false);
+  const [showAdditionalForm, setShowAdditionalForm] = useState(false);
   const [values, setValues] = useState(initialFormValues);
   const [valuesJum, setValuesJum] = useState(initialJumlah);
   const [visible, setVisible] = useState(false);
@@ -49,6 +51,15 @@ export default function CardForm(props) {
   const [filter, setFilter] = useState("");
 
   const { Formik } = formik;
+  const jumSubmit = (values) =>
+    jumlahSubmit(
+      // event,
+      values,
+      valuesJum,
+      setValues,
+      setValuesJum,
+      setValidatedJumlah
+    );
 
   const schema = yup.object().shape({
     model: yup.string().required("Model belum diisi"),
@@ -59,21 +70,12 @@ export default function CardForm(props) {
       .min(20, "Kurang dari 20"),
   });
 
-  const jumSubmit = (event) =>
-    jumlahSubmit(
-      event,
-      values,
-      valuesJum,
-      setValues,
-      setValuesJum,
-      setValidatedJumlah
-    );
   const ubahFunc = () => ubahFunction(valuesJum, setValuesJum);
   // const handleForm = (event) => {
   //   const { target } = event;
   //   formik.setFieldValue(target.name, target.value);
   // };
-  const handleInputChange = (event) =>
+  const handleInputChange = (event) => {
     handleFormInput(
       event,
       values,
@@ -102,6 +104,9 @@ export default function CardForm(props) {
       setDataAkad,
       setDataResepsi
     );
+    // const { target } = event;
+    // formik.setFieldValue(target.name, target.value);
+  };
   const handleSubmit = (event) =>
     handleFormSubmit(
       event,
@@ -114,6 +119,24 @@ export default function CardForm(props) {
       filter,
       setValidated
     );
+
+  // const formik = useFormik({
+  //   initialValues: {
+  //     model: "",
+  //     desain: "",
+  //     jumlah: "",
+  //   },
+  //   onSubmit: jumSubmit,
+  //   // onChange: handleInputChange,
+  //   validationSchema: yup.object().shape({
+  //     model: yup.string().required("Model belum diisi"),
+  //     desain: yup.string().required("desain belum diisi"),
+  //     jumlah: yup
+  //       .number()
+  //       .required("Jumlah belum diisi")
+  //       .min(20, "Kurang dari 20"),
+  //   }),
+  // });
   return (
     <Container>
       <Row>
@@ -129,7 +152,7 @@ export default function CardForm(props) {
               </Form.Label>
               <Formik
                 validationSchema={schema}
-                onSubmit={jumSubmit}
+                onSubmit={(values) => jumSubmit(values)}
                 initialValues={{
                   model: "",
                   desain: "",
@@ -140,7 +163,8 @@ export default function CardForm(props) {
                   <Form className="form" noValidate onSubmit={handleSubmit}>
                     {/* Form model */}
                     <TextInput
-                      isInvalid={!!errors.model}
+                      isInvalid={!!errors.model && touched.model}
+                      isValid={touched.model && !errors.model}
                       name="model"
                       label="Model Undangan Cetak"
                       value={values.model}
@@ -152,7 +176,7 @@ export default function CardForm(props) {
 
                     {/* Form Desain */}
                     <TextInput
-                      isInvalid={!!errors.desain}
+                      isInvalid={!!errors.desain && touched.desain}
                       name="desain"
                       label="Desain/Tema Undangan Cetak"
                       value={values.desain}
@@ -171,7 +195,7 @@ export default function CardForm(props) {
                         required
                         type="number"
                         placeholder="Masukkan Jumlah"
-                        isInvalid={!!errors.jumlah}
+                        isInvalid={!!errors.jumlah && touched.jumlah}
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors.jumlah}
@@ -215,6 +239,7 @@ export default function CardForm(props) {
                 validated={validated}
                 onSubmit={handleSubmit}
               >
+                {/* {showAdditionalForm && ( */}
                 {valuesJum.visibleUnder && (
                   <>
                     {/* Penanda Lokasi */}

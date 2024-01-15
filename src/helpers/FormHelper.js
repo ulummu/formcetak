@@ -1,5 +1,3 @@
-import { Formik } from "formik";
-
 export const capitalFirstWord = (event) => {
   var words = event.split(" ");
   for (var i = 0; i < words.length; i++) {
@@ -16,14 +14,16 @@ export const checkSpecialChar = (e) => {
   }
 };
 export const jumlahSubmit = (
-  event,
+  // event,
   values,
   valuesJum,
   setValues,
   setValuesJum,
   setValidatedJumlah
 ) => {
-  const { name, value } = event.target;
+  // const { name, value } = event.target;
+  let newValues = values;
+  console.log(values);
   if (values.jumlah === "") {
     setValuesJum({ ...valuesJum, errText: "Jumlah Belum Diisi" });
   }
@@ -57,10 +57,12 @@ export const jumlahSubmit = (
   }
   setValues({
     ...values,
-    [name]: value,
+    model: values.model,
+    desain: values.desain,
+    jumlah: values.jumlah,
   });
-  event.preventDefault();
-  event.stopPropagation();
+  // event.preventDefault();
+  // event.stopPropagation();
   setValidatedJumlah(true);
 };
 export const ubahFunction = (valuesJum, setValuesJum) => {
