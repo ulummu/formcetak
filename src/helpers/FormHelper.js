@@ -14,27 +14,27 @@ export const checkSpecialChar = (e) => {
   }
 };
 export const jumlahSubmit = (
-  // event,
-  values,
+  newValues,
   valuesJum,
   setValues,
-  setValuesJum,
-  setValidatedJumlah
+  setValuesJum
+  // setValidatedJumlah
 ) => {
-  // const { name, value } = event.target;
-  let newValues = values;
-  console.log(values);
-  if (values.jumlah === "") {
+  if (newValues.jumlah === "") {
     setValuesJum({ ...valuesJum, errText: "Jumlah Belum Diisi" });
   }
-  if (values.jumlah <= 20 && values.jumlah !== "") {
+  if (newValues.jumlah <= 20 && newValues.jumlah !== "") {
     setValuesJum({
       ...valuesJum,
       verif: true,
       errText: "Jumlah kurang dari 20",
     });
   }
-  if (values.jumlah <= 101 && values.jumlah !== "" && values.jumlah > 20) {
+  if (
+    newValues.jumlah <= 101 &&
+    newValues.jumlah !== "" &&
+    newValues.jumlah > 20
+  ) {
     setValuesJum({
       ...valuesJum,
       verif: false,
@@ -44,7 +44,7 @@ export const jumlahSubmit = (
       visibleButtonJumlah: false,
       kata: "Include",
     });
-  } else if (values.jumlah > 101) {
+  } else if (newValues.jumlah > 101) {
     setValuesJum({
       ...valuesJum,
       verif: false,
@@ -55,15 +55,10 @@ export const jumlahSubmit = (
       kata: "Free",
     });
   }
-  setValues({
-    ...values,
-    model: values.model,
-    desain: values.desain,
-    jumlah: values.jumlah,
-  });
+  setValues(newValues);
   // event.preventDefault();
   // event.stopPropagation();
-  setValidatedJumlah(true);
+  // setValidatedJumlah(true);
 };
 export const ubahFunction = (valuesJum, setValuesJum) => {
   setValuesJum({
@@ -155,7 +150,10 @@ export const handleFormInput = (
     newValues.visibleQR = false;
     newValues.denahNote = true;
     setValues(newValues);
-  } else {
+  } else if (
+    event.target.name === "penandaLokasi" &&
+    event.target.value === "Tanpa Penanda"
+  ) {
     let newValues = values;
     newValues.visibleQR = false;
     newValues.denahNote = false;

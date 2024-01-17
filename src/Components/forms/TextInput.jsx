@@ -7,6 +7,7 @@ const TextInput = ({
   type,
   disable,
   isInvalid,
+  isValid,
   classEffect,
   value,
   label,
@@ -28,6 +29,7 @@ const TextInput = ({
         type={type}
         placeholder={placeholder}
         isInvalid={isInvalid}
+        isValid={isValid}
         />
       <Form.Text muted>
         {note}

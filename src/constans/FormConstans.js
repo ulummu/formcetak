@@ -263,20 +263,4 @@ export const videoPackages = [
   { value: "Gambar/Jpeg", text: "Gambar/Jpeg" },
   { value: "Video 15/30 detik", text: "Video 15/30 detik" },
   { value: "Video 60 detik", text: "Video 60 detik" },
-  {
-    value: "Paket Hemat 1 (Video 15/30 detik dan Jpeg)",
-    text: "Paket Hemat 1 (Video 15/30 detik dan Jpeg)",
-  },
-  {
-    value: "Paket Hemat 2 (Video 60 detik dan Jpeg)",
-    text: "Paket Hemat 2 (Video 60 detik & Jpeg)",
-  },
-  {
-    value: "Paket Hemat 3 (Video 60 detik dan Video 15/30 detik)",
-    text: "Paket Hemat 3 (Video 60 detik & Video 15/30 detik",
-  },
-  {
-    value: "Paket Hemat 4 (Video 60 detik dan Video 15/30 detik dan Jpeg)",
-    text: "Paket Hemat 4 (Video 60 detik & Video 15/30 detik & Jpeg",
-  },
 ];
