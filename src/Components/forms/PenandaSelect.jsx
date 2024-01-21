@@ -1,5 +1,5 @@
 import React,{ useState } from 'react'
-import logo from "../../apple.png";
+import logo from "../../denah.png";
 import { Button, Form, Modal } from "react-bootstrap";
 import TextInputFormComponent from './TextInputFormComponent';
 
@@ -67,8 +67,8 @@ const PenandaSelect = ({
           <Modal.Title>Petunjuk Penanda Lokasi</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <img src={logo} alt="logo" className="ujilogo"/><br />
-          Woohoo, you are reading this text in a modal!</Modal.Body>
+        <img src={logo} alt="logo" className="ujilogo align-self-center"/>
+          </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
             Close

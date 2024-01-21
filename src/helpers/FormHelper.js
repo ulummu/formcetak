@@ -20,20 +20,10 @@ export const jumlahSubmit = (
   setValuesJum
   // setValidatedJumlah
 ) => {
-  if (newValues.jumlah === "") {
-    setValuesJum({ ...valuesJum, errText: "Jumlah Belum Diisi" });
-  }
-  if (newValues.jumlah <= 20 && newValues.jumlah !== "") {
-    setValuesJum({
-      ...valuesJum,
-      verif: true,
-      errText: "Jumlah kurang dari 20",
-    });
-  }
   if (
     newValues.jumlah <= 101 &&
     newValues.jumlah !== "" &&
-    newValues.jumlah > 20
+    newValues.jumlah > 9
   ) {
     setValuesJum({
       ...valuesJum,

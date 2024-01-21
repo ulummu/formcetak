@@ -71,7 +71,7 @@ export default function CardForm(props) {
     jumlah: yup
       .number()
       .required("Jumlah belum diisi")
-      .min(20, "Kurang dari 20"),
+      .min(10, "Kurang dari 10"),
   });
 
   const ubahFunc = () => ubahFunction(valuesJum, setValuesJum);
